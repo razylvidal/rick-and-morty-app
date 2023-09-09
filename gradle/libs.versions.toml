@@ -9,6 +9,8 @@ appcompat = "1.6.1"
 material = "1.8.0"
 detekt = "1.23.1"
 ktlint = "11.5.1"
+gson = "2.10.1"
+retrofit = "2.9.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -17,6 +19,11 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+# Retrofit
+gson-converter = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
