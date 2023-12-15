@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.com.android.library) apply false
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.dagger.hilt) apply false
 } // Needed to make the Suppress annotation work for the plugins block
 
 allprojects {
