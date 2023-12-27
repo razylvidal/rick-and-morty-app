@@ -10,7 +10,7 @@ class GetCharacterUseCase(
     private val gateway: CharacterGateway
 ) {
 
-    suspend fun get(id : Int) : Character {
+    suspend fun get(id: Int): Character {
         return gateway.get(id)
     }
 }

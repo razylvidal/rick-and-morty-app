@@ -7,20 +7,13 @@ import com.codesthetic.engine.core.characters.domain.CharacterGateway
  * Created by razylvidal on September 08, 2023
  */
 class CharacterRepository(
-    private val api : CharacterRemoteService
+    private val api: CharacterRemoteService
 ) : CharacterGateway {
-    override suspend fun get(id: Int): Character {
-       return try {
-           api.fetch(id).toDomain()
-       }catch (ex : Exception){
-           throw ex.fillInStackTrace()
-       }
-    }
 
     override suspend fun get(): List<Character> {
         return try {
             api.fetch().characters.map { it.toDomain() }
-        }catch (ex : Exception){
+        } catch (ex: Exception) {
             throw ex.fillInStackTrace()
         }
     }

@@ -10,7 +10,7 @@ class FetchCharactersUseCase(
     private val gateway: CharacterGateway
 ) {
 
-    suspend fun fetch() : List<Character> {
+    suspend fun fetch(): List<Character> {
         return gateway.get()
     }
 }

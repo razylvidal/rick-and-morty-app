@@ -1,17 +1,15 @@
 package com.codesthetic.engine.core.characters.data
 
 import com.codesthetic.engine.core.characters.domain.Character
-import com.codesthetic.engine.core.characters.domain.Location
-import com.codesthetic.engine.core.characters.domain.Origin
 
 /**
  * Created by razylvidal on September 08, 2023
  */
-fun CharacterRaw.toDomain() = Character(
+fun CharactersResult.CharacterRaw.toDomain() = Character(
     id = id,
     name = name,
     status = status,
-    species= species,
+    species = species,
     type = type,
     gender = gender,
     origin = origin.toDomain(),
@@ -22,12 +20,12 @@ fun CharacterRaw.toDomain() = Character(
     created = created
 )
 
-fun OriginRaw.toDomain() = Origin(
+fun CharactersResult.CharacterRaw.OriginRaw.toDomain() = Character.Origin(
     name = name,
     url = url
 )
 
-fun LocationRaw.toDomain() = Location(
+fun CharactersResult.CharacterRaw.LocationRaw.toDomain() = Character.Location(
     name = name,
     url = url
 )
