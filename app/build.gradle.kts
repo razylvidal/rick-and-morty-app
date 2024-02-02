@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
-    kotlin("kapt")
+    id("kotlin-kapt")
     alias(libs.plugins.dagger.hilt)
 }
 
@@ -49,6 +49,14 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.hilt)
+    // Module
+    implementation(project(":engine-core"))
+
+    // Hilt
+    api(libs.hilt)
     kapt(libs.hilt.compiler)
+
+    // Room
+    implementation(libs.bundles.room.database)
+    kapt(libs.room.compiler)
 }
