@@ -7,5 +7,5 @@ import retrofit2.http.GET
  */
 interface EpisodeRemoteService {
     @GET("/episode")
-    suspend fun fetch() : EpisodeResult
+    suspend fun fetch(): EpisodeResult
 }

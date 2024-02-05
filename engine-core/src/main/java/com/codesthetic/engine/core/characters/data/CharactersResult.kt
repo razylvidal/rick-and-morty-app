@@ -9,7 +9,7 @@ data class CharactersResult(
 
     @SerializedName("results")
     val characters: List<CharacterRaw>
-){
+) {
     data class CharacterRaw(
 
         @SerializedName("id")
@@ -47,7 +47,7 @@ data class CharactersResult(
 
         @SerializedName("created")
         val created: String
-    ){
+    ) {
 
         data class LocationRaw(
             @SerializedName("name")
@@ -64,6 +64,5 @@ data class CharactersResult(
             @SerializedName("url")
             val url: String
         )
-
     }
 }

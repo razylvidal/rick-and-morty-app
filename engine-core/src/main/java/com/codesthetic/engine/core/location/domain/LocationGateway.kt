@@ -5,5 +5,5 @@ package com.codesthetic.engine.core.location.domain
  */
 interface LocationGateway {
 
-    suspend fun get() : Location
+    suspend fun get(): Location
 }

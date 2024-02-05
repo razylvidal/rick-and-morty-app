@@ -42,5 +42,5 @@ class CharacterDB(
     val url: String,
 
     @ColumnInfo(name = "episodes")
-    val episodes : String
+    val episodes: String
 )

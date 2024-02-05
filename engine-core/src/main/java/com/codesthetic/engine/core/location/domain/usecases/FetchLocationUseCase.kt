@@ -8,5 +8,4 @@ import javax.inject.Inject
  */
 class FetchLocationUseCase @Inject constructor(
     private val gateway: LocationGateway
-) {
-}
+)

@@ -11,10 +11,8 @@ class FetchCharactersUseCase @Inject constructor(
 ) {
     suspend fun fetch() {
         val characters = gateway.fetch()
-        characters.map{
+        characters.map {
             gateway.save(it)
         }
-
     }
-
 }

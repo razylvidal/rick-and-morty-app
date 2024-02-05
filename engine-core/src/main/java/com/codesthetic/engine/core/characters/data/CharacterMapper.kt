@@ -19,7 +19,7 @@ fun CharactersResult.CharacterRaw.toDomain() = Character(
     url = url
 )
 
-private fun String.getID() : Int {
+private fun String.getID(): Int {
     return this.substringAfterLast('/').toInt()
 }
 
@@ -34,7 +34,7 @@ fun Character.toDB() = CharacterDB(
     location = location,
     imageURL = image,
     episodes = episode.joinToString(separator = ","),
-    url = url,
+    url = url
 )
 
 fun CharacterDB.toDomain() = Character(
@@ -50,4 +50,3 @@ fun CharacterDB.toDomain() = Character(
     episode = episodes.split(",").map { it.toInt() },
     url = url
 )
-

@@ -28,7 +28,7 @@ class CharacterRepository(
     }
 
     override fun get(id: Int): Character {
-        return  dao.get(id).toDomain()
+        return dao.get(id).toDomain()
     }
 
     override suspend fun save(character: Character) {

@@ -19,7 +19,7 @@ interface CharacterDao {
     fun save(character: CharacterDB)
 
     @Query("SELECT COUNT(*) FROM characters")
-    fun count() : Int
+    fun count(): Int
 
     @Query("DELETE FROM characters")
     fun clear()

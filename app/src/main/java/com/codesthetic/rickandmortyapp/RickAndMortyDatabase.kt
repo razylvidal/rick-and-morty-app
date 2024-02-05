@@ -13,14 +13,14 @@ import com.codesthetic.engine.core.characters.data.CharacterDao
 
 @Database(
     entities = [
-               CharacterDB::class
-               ],
+        CharacterDB::class
+    ],
     version = 1,
     exportSchema = true
 )
 abstract class RickAndMortyDatabase : RoomDatabase() {
 
-    abstract fun characterDao() : CharacterDao
+    abstract fun characterDao(): CharacterDao
 
     companion object {
         private const val DB_NAME = "rickandmorty.db"
