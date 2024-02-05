@@ -5,14 +5,18 @@ import com.codesthetic.engine.core.location.domain.LocationGateway
 import javax.inject.Inject
 
 /**
- * Created by razylvidal on December 27, 2023
+ * Created by razylvidal on February 05, 2024
  */
-class FetchLocationUseCase @Inject constructor(
+class GetLocationUseCase @Inject constructor(
     private val gateway: LocationGateway
 ){
-    suspend fun fetch() : List<Location>{
-        return gateway.fetch().also {
-            gateway.save(it)
-        }
+
+    suspend fun get() : List<Location>{
+        return gateway.get()
+    }
+
+    suspend fun get(id : Int) : Location {
+        return gateway.get(id)
     }
 }
+

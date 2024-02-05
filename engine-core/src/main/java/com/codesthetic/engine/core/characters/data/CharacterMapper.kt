@@ -12,20 +12,41 @@ fun CharactersResult.CharacterRaw.toDomain() = Character(
     species = species,
     type = type,
     gender = gender,
-    origin = origin.toDomain(),
-    location = location.toDomain(),
+    origin = origin.url.getID(),
+    location = location.url.getID(),
     image = image,
-    episode = episode,
-    url = url,
-    created = created
-)
-
-fun CharactersResult.CharacterRaw.OriginRaw.toDomain() = Character.Origin(
-    name = name,
+    episode = episode.map { it.getID() },
     url = url
 )
 
-fun CharactersResult.CharacterRaw.LocationRaw.toDomain() = Character.Location(
+private fun String.getID(): Int {
+    return this.substringAfterLast('/').toInt()
+}
+
+fun Character.toDB() = CharacterDB(
+    id = id,
     name = name,
+    status = status,
+    species = species,
+    type = type ?: "",
+    gender = gender,
+    origin = origin,
+    location = location,
+    imageURL = image,
+    episodes = episode.joinToString(separator = ","),
+    url = url
+)
+
+fun CharacterDB.toDomain() = Character(
+    id = id,
+    name = name,
+    status = status,
+    species = species,
+    type = type,
+    gender = gender,
+    origin = origin,
+    location = location,
+    image = imageURL,
+    episode = episodes.split(",").map { it.toInt() },
     url = url
 )
