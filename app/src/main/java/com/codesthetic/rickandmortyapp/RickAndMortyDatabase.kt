@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.codesthetic.engine.core.characters.data.CharacterDB
 import com.codesthetic.engine.core.characters.data.CharacterDao
+import com.codesthetic.engine.core.episodes.data.EpisodeDao
+import com.codesthetic.engine.core.location.data.LocationDao
 
 /**
  * Created by razylvidal on January 20, 2024
@@ -21,6 +23,8 @@ import com.codesthetic.engine.core.characters.data.CharacterDao
 abstract class RickAndMortyDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDao
+    abstract fun episodeDao() : EpisodeDao
+    abstract fun locationDao() : LocationDao
 
     companion object {
         private const val DB_NAME = "rickandmorty.db"

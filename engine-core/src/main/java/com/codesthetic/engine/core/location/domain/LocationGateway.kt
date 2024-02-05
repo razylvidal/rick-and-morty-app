@@ -5,5 +5,13 @@ package com.codesthetic.engine.core.location.domain
  */
 interface LocationGateway {
 
-    suspend fun get(): Location
+    suspend fun fetch(): List<Location>
+
+    suspend fun get(): List<Location>
+
+    suspend fun get(id: Int): Location
+
+    suspend fun save(locations: List<Location>)
+
+    fun clear()
 }
