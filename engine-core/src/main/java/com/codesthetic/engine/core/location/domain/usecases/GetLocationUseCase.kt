@@ -9,14 +9,13 @@ import javax.inject.Inject
  */
 class GetLocationUseCase @Inject constructor(
     private val gateway: LocationGateway
-){
+) {
 
-    suspend fun get() : List<Location>{
+    suspend fun get(): List<Location> {
         return gateway.get()
     }
 
-    suspend fun get(id : Int) : Location {
+    suspend fun get(id: Int): Location {
         return gateway.get(id)
     }
 }
-

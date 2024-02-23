@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.codesthetic.rickandmortyapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.codesthetic.rickandmortyapp"
@@ -38,6 +38,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -51,6 +56,10 @@ dependencies {
 
     // Module
     implementation(project(":engine-core"))
+    implementation(project(":feature-characters"))
+    implementation(project(":feature-episodes"))
+    implementation(project(":feature-locations"))
+    implementation(project(":feature-appsetting"))
 
     // Hilt
     api(libs.hilt)
@@ -59,4 +68,8 @@ dependencies {
     // Room
     implementation(libs.bundles.room.database)
     kapt(libs.room.compiler)
+
+    // Navigation Fragments
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 }

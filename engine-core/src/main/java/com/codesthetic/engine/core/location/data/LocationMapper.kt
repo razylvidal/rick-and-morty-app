@@ -36,4 +36,3 @@ fun Location.toDB() = LocationDB(
     residents = residents.joinToString(","),
     url = url
 )
-

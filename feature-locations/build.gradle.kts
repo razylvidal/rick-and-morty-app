@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.codesthetic.feature_locations"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24

@@ -9,8 +9,8 @@ import javax.inject.Inject
  */
 class FetchLocationUseCase @Inject constructor(
     private val gateway: LocationGateway
-){
-    suspend fun fetch() : List<Location>{
+) {
+    suspend fun fetch(): List<Location> {
         return gateway.fetch().also {
             gateway.save(it)
         }

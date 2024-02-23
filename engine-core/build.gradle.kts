@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.codesthetic.engine_core"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -45,9 +45,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    // Module
-    implementation(project(":engine-core"))
 
     // Hilt
     implementation(libs.hilt)

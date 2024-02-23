@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetEpisodeUseCase @Inject constructor(
     private val gateway: EpisodeGateway
 ) {
-    suspend fun get(): List<Episode>  {
+    suspend fun get(): List<Episode> {
         return gateway.get()
     }
 
