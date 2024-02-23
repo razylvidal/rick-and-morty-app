@@ -25,8 +25,8 @@ class LocationDB(
     val dimension: String,
 
     @ColumnInfo(name = "residents")
-    val residents : String,
+    val residents: String,
 
     @ColumnInfo(name = "url")
-    val url : String
+    val url: String
 )

@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.codesthetic.engine.core.characters.data.CharacterDB
 import com.codesthetic.engine.core.characters.data.CharacterDao
+import com.codesthetic.engine.core.episodes.data.EpisodeDB
 import com.codesthetic.engine.core.episodes.data.EpisodeDao
+import com.codesthetic.engine.core.location.data.LocationDB
 import com.codesthetic.engine.core.location.data.LocationDao
 
 /**
@@ -15,7 +17,9 @@ import com.codesthetic.engine.core.location.data.LocationDao
 
 @Database(
     entities = [
-        CharacterDB::class
+        CharacterDB::class,
+        EpisodeDB::class,
+        LocationDB::class
     ],
     version = 1,
     exportSchema = true
@@ -23,8 +27,8 @@ import com.codesthetic.engine.core.location.data.LocationDao
 abstract class RickAndMortyDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDao
-    abstract fun episodeDao() : EpisodeDao
-    abstract fun locationDao() : LocationDao
+    abstract fun episodeDao(): EpisodeDao
+    abstract fun locationDao(): LocationDao
 
     companion object {
         private const val DB_NAME = "rickandmorty.db"

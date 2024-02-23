@@ -24,6 +24,6 @@ class EpisodeRepository @Inject constructor(
     }
 
     override suspend fun save(episode: Episode) {
-        dao.save(episode)
+        dao.save(episode.toDB())
     }
 }

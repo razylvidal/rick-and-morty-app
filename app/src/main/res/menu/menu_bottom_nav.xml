@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/charactersFragment"
+            android:icon="@drawable/baseline_group_24"
+            android:title="@string/characters" />
+
+        <item
+            android:id="@+id/episodesFragment"
+            android:icon="@drawable/baseline_live_tv_24"
+            android:title="@string/episodes" />
+
+        <item
+            android:id="@+id/appSettingFragment"
+            android:icon="@drawable/baseline_manage_accounts_24"
+            android:title="@string/settings" />
+    </group>
+
+</menu>

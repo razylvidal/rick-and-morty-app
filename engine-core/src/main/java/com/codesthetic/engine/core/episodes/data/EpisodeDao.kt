@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.codesthetic.engine.core.episodes.domain.Episode
 
 /**
  * Created by razylvidal on December 21, 2023
@@ -13,9 +12,9 @@ import com.codesthetic.engine.core.episodes.domain.Episode
 interface EpisodeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(episode: Episode)
+    fun save(episode: EpisodeDB)
 
-    @Query("SELECT * FROM episodes WHERE id = :id")
+    @Query("SELECT * FROM episodes WHERE id =:id LIMIT 1")
     fun get(id: Int): EpisodeDB
 
     @Query("SELECT * FROM episodes")

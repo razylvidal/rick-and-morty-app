@@ -13,13 +13,13 @@ import androidx.room.Query
 interface LocationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(location : LocationDB)
+    fun save(location: LocationDB)
 
     @Query("SELECT * FROM location")
-    fun get() : List<LocationDB>
+    fun get(): List<LocationDB>
 
     @Query("SELECT * FROM location WHERE id=:id")
-    fun get(id : Int) : LocationDB
+    fun get(id: Int): LocationDB
 
     @Query("DELETE FROM location")
     fun clear()
