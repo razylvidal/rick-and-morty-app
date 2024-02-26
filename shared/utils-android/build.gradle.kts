@@ -2,14 +2,10 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.ktlint)
-    alias(libs.plugins.detekt)
-    kotlin("kapt")
-    alias(libs.plugins.dagger.hilt)
 }
 
 android {
-    namespace = "com.codesthetic.feature_characters"
+    namespace = "com.codesthetic.shared.utils_android"
     compileSdk = 34
 
     defaultConfig {
@@ -28,10 +24,6 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -49,11 +41,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    implementation(libs.hilt)
-    kapt(libs.hilt.compiler)
-
-    implementation(project(":engine-core"))
-    api(project(":shared:theme"))
-    implementation(project(":shared:utils-android"))
 }
