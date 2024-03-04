@@ -11,7 +11,6 @@ import androidx.room.Query
 
 @Dao
 interface CharacterDao {
-
     @Query("SELECT * FROM characters WHERE id = :id")
     fun get(id: Int): CharacterDB
 

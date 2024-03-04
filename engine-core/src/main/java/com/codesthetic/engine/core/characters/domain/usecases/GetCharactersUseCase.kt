@@ -7,11 +7,12 @@ import javax.inject.Inject
 /**
  * Created by razylvidal on September 09, 2023
  */
-class GetCharactersUseCase @Inject constructor(
-    private val gateway: CharacterGateway
-) {
-
-    suspend fun get(): List<Character> {
-        return gateway.get()
+class GetCharactersUseCase
+    @Inject
+    constructor(
+        private val gateway: CharacterGateway,
+    ) {
+        suspend fun get(): List<Character> {
+            return gateway.get()
+        }
     }
-}

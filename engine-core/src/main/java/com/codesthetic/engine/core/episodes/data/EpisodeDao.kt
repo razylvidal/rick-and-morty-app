@@ -10,7 +10,6 @@ import androidx.room.Query
  */
 @Dao
 interface EpisodeDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(episode: EpisodeDB)
 

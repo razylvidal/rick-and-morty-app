@@ -12,11 +12,14 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import java.util.Objects
 
-
 class CustomEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText(context, attrs) {
     private var onKeyPreImeListener: OnKeyPreImeListener? = null
     private var onSuperEditTextListener: OnSuperEditTextListener? = null
-    override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
+
+    override fun onKeyPreIme(
+        keyCode: Int,
+        event: KeyEvent,
+    ): Boolean {
         if (keyCode == KEYCODE_BACK) {
             if (onKeyPreImeListener != null) onKeyPreImeListener!!.onBackpressed()
             if (onSuperEditTextListener != null) onSuperEditTextListener!!.onBack()
@@ -43,17 +46,31 @@ class CustomEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText
             }
             true
         }
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                // do nothing
+        addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int,
+                ) {
+                    // do nothing
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int,
+                ) {
+                    // do nothing
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    onSuperEditTextListener.onTextChanged(Objects.requireNonNull(text).toString())
+                }
             }
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                // do nothing
-            }
-            override fun afterTextChanged(editable: Editable) {
-                onSuperEditTextListener.onTextChanged(Objects.requireNonNull(text).toString())
-            }
-        })
+        )
     }
 
     fun clear() {
@@ -63,8 +80,9 @@ class CustomEditText(context: Context, attrs: AttributeSet?) : AppCompatEditText
 
     interface OnSuperEditTextListener {
         fun onBack()
+
         fun onTextChanged(text: String?)
+
         fun onDone()
     }
 }
-

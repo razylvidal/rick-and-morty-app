@@ -10,23 +10,17 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "location")
 class LocationDB(
-
     @PrimaryKey
     @ColumnInfo(name = "id")
     val id: Int,
-
     @ColumnInfo(name = "name")
     val name: String,
-
     @ColumnInfo(name = "type")
     val type: String,
-
     @ColumnInfo(name = "dimension")
     val dimension: String,
-
     @ColumnInfo(name = "residents")
     val residents: String,
-
     @ColumnInfo(name = "url")
-    val url: String
+    val url: String,
 )
