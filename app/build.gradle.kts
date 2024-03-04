@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
-    id("kotlin-kapt")
+    kotlin("kapt")
     alias(libs.plugins.dagger.hilt)
 }
 
