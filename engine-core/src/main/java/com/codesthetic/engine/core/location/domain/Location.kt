@@ -9,5 +9,5 @@ data class Location(
     val type: String,
     val dimension: String,
     val residents: List<Int>,
-    val url: String
+    val url: String,
 )

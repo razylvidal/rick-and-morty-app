@@ -1,0 +1,34 @@
+[*.{kt,kts}]
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_size = 4
+max_line_length = 120
+
+ktlint_standard = enabled
+
+# Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
+ktlint_custom-rule-set = enabled
+
+
+# Don't allow any wildcard imports
+ij_kotlin_packages_to_use_import_on_demand = unset
+
+# Prevent wildcard imports
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+
+#allow trailing comma
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = false
+
+# ignore function name when annotated with @Test
+ktlint_function_naming_ignore_when_annotated_with = Test
+
+# disable import ordering
+ktlint_standard_import-ordering = enabled
+
+# no unused imports
+ktlint_standard-no-unused-imports = enabled
+
+# disable property naming
+ktlint_standard_property-naming = enabled

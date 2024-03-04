@@ -11,7 +11,6 @@ import androidx.room.Query
 
 @Dao
 interface LocationDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(location: LocationDB)
 

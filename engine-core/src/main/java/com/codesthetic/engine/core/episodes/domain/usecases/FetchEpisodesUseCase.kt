@@ -7,10 +7,12 @@ import javax.inject.Inject
 /**
  * Created by razylvidal on December 21, 2023
  */
-class FetchEpisodesUseCase @Inject constructor(
-    private val gateway: EpisodeGateway
-) {
-    suspend fun fetch(): List<Episode> {
-        return gateway.fetch()
+class FetchEpisodesUseCase
+    @Inject
+    constructor(
+        private val gateway: EpisodeGateway,
+    ) {
+        suspend fun fetch(): List<Episode> {
+            return gateway.fetch()
+        }
     }
-}

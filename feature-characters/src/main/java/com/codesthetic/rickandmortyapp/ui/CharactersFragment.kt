@@ -14,13 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
-
     private lateinit var binding: CharacterFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = CharacterFragmentBinding.inflate(inflater, container, false)
         return binding.root

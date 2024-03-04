@@ -25,9 +25,10 @@ import com.codesthetic.engine.core.location.data.LocationDao
     exportSchema = true
 )
 abstract class RickAndMortyDatabase : RoomDatabase() {
-
     abstract fun characterDao(): CharacterDao
+
     abstract fun episodeDao(): EpisodeDao
+
     abstract fun locationDao(): LocationDao
 
     companion object {
@@ -40,10 +41,11 @@ abstract class RickAndMortyDatabase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): RickAndMortyDatabase {
             if (instance == null) {
-                instance = Room.databaseBuilder(context, RickAndMortyDatabase::class.java, DB_NAME)
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build()
+                instance =
+                    Room.databaseBuilder(context, RickAndMortyDatabase::class.java, DB_NAME)
+                        .fallbackToDestructiveMigration()
+                        .allowMainThreadQueries()
+                        .build()
             }
             return instance!!
         }

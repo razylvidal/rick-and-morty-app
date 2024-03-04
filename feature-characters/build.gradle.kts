@@ -54,4 +54,6 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(project(":engine-core"))
+    api(project(":shared:theme"))
+    implementation(project(":shared:utils-android"))
 }

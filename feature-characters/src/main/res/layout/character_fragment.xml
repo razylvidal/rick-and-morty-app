@@ -1,21 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/charactersFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/charactersFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/color_background">
 
-    <TextView
+    <include
+        android:id="@+id/characterAppbar"
+        layout="@layout/character_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toTopOf="@id/rvCharacters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/characterAppbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="9dp"
+            android:text="@string/characters"
+            android:textColor="@color/color_on_primary"
+            android:textSize="16sp" />
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_weight="1"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:itemSpacing="5dp"
+                app:singleLine="true"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:clickable="false"
+                    android:textColor="@color/color_primary_variant"
+                    app:chipBackgroundColor="@color/color_background"
+                    app:chipStrokeColor="@color/color_primary_variant"
+                    app:chipStrokeWidth="1dp"
+                    app:closeIcon="@drawable/baseline_close_24"
+                    app:closeIconEnabled="true"
+                    app:closeIconTint="@null"
+                    tools:text="Beverage" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="false"
+                    android:clickable="false"
+                    android:textColor="@color/color_primary_variant"
+                    app:chipBackgroundColor="@color/color_background"
+                    app:chipStrokeColor="@color/color_primary_variant"
+                    app:chipStrokeWidth="1dp"
+                    app:closeIcon="@drawable/baseline_close_24"
+                    app:closeIconEnabled="true"
+                    app:closeIconTint="@null"
+                    tools:text="Beverage" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCharacters"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="RAZYL"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
+        app:layout_constraintTop_toBottomOf="@id/linearlayout"
+        tools:itemCount="6"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/character_frame_layout"
+        android:paddingHorizontal="25dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

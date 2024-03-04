@@ -13,13 +13,12 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class AppSettingFragment : Fragment() {
-
     private lateinit var binding: AppsettingFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = AppsettingFragmentBinding.inflate(inflater, container, false)
         return binding.root

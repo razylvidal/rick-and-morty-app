@@ -9,5 +9,5 @@ data class Episode(
     val airDate: String,
     val episode: String,
     val characters: List<Int>,
-    val url: String
+    val url: String,
 )
