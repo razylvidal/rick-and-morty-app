@@ -8,6 +8,8 @@ interface CharactersContract {
     interface View {
         fun showLoading()
         fun hideLoading()
+        fun showFilter()
+        fun hideFilter()
     }
 
     interface Presenter {
