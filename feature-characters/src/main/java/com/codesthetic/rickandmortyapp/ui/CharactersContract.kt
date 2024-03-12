@@ -10,6 +10,7 @@ interface CharactersContract {
         fun hideLoading()
         fun showFilter()
         fun hideFilter()
+        fun showCharacters()
     }
 
     interface Presenter {
