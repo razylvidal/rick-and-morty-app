@@ -53,7 +53,10 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    implementation(project(":engine-core"))
+    implementation(libs.flexiadapter)
+//    implementation(libs.flexiadapter.ui)
+
+    api(project(":engine-core"))
     api(project(":shared:theme"))
     implementation(project(":shared:utils-android"))
 }

@@ -23,6 +23,10 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         CharacterFragmentBinding.inflate(layoutInflater)
     }
 
+    private val adapter by lazy {
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +38,6 @@ class CharactersFragment : Fragment(), CharactersContract.View {
 
         presenter.onViewReady(this)
 
-        setupRecyclerView()
     }
 
     override fun onDestroy() {
@@ -42,7 +45,31 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         presenter.onDestroy()
     }
 
-    private fun setupRecyclerView() {
+    override fun showLoading() {
+        TODO("Not yet implemented")
+    }
 
+    override fun hideLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showFilter() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideFilter() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showCharacters() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showEmptyState() {
+        TODO("Not yet implemented")
+    }
+
+    override fun navigateToCharacter() {
+        TODO("Not yet implemented")
     }
 }
