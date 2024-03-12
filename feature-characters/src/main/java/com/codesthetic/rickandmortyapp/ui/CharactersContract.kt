@@ -11,6 +11,7 @@ interface CharactersContract {
         fun showFilter()
         fun hideFilter()
         fun showCharacters()
+        fun showEmptyState()
     }
 
     interface Presenter {
