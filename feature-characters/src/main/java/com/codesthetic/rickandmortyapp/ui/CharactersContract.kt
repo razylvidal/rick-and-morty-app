@@ -6,7 +6,8 @@ package com.codesthetic.rickandmortyapp.ui
 interface CharactersContract {
 
     interface View {
-
+        fun showLoading()
+        fun hideLoading()
     }
 
     interface Presenter {
