@@ -35,7 +35,7 @@ class CharactersPresenter
             TODO("Not yet implemented")
         }
 
-        override fun onCharacterClicked() {
+        override fun onCharacterClicked(id: Int) {
             TODO("Not yet implemented")
         }
     }

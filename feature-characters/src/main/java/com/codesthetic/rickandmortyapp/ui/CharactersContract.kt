@@ -35,6 +35,6 @@ interface CharactersContract {
 
         fun onApplyFilters()
 
-        fun onCharacterClicked()
+        fun onCharacterClicked(id: Int)
     }
 }

@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codesthetic.feature_characters.databinding.CharacterFragmentBinding
+import com.codesthetic.flexi.BaseFlexiView
+import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
+import com.codesthetic.rickandmortyapp.ui.flexiitems.CharacterFlexiView
 import dagger.hilt.android.AndroidEntryPoint
+import eu.davidea.flexibleadapter.FlexibleAdapter
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -20,6 +25,29 @@ class CharactersFragment : Fragment(), CharactersContract.View {
 
     private val binding by lazy {
         CharacterFragmentBinding.inflate(layoutInflater)
+    }
+
+    private val adapter by lazy {
+        FlexibleAdapter<BaseFlexiView>(emptyList())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        adapter.mItemClickListener =
+            object : ThrottledFlexiItemClickedListener() {
+                override fun onSingleClicked(
+                    view: View?,
+                    position: Int,
+                ) {
+                    val character = adapter.getItem(position) as? CharacterFlexiView
+                    if (character != null) {
+                        presenter.onCharacterClicked(character.character.id)
+                    } else {
+                        Timber.e("Item cannot be cast to CharacterFlexiView")
+                    }
+                }
+            }
     }
 
     override fun onCreateView(

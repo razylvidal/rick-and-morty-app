@@ -56,4 +56,6 @@ dependencies {
     // Room
     implementation(libs.bundles.room.database)
     kapt(libs.room.compiler)
+
+    api(libs.timber)
 }
