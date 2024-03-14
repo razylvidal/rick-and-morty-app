@@ -71,7 +71,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
     }
 
     override fun showLoading() {
-        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun hideLoading() {
