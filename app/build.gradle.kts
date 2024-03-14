@@ -55,7 +55,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     // Module
-    implementation(project(":engine-core"))
     implementation(project(":feature-characters"))
     implementation(project(":feature-episodes"))
     implementation(project(":feature-locations"))

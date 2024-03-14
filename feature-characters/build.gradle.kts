@@ -4,8 +4,9 @@ plugins {
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
-    kotlin("kapt")
     alias(libs.plugins.dagger.hilt)
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -49,11 +50,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.constraintlayout)
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    implementation(project(":engine-core"))
+    api(project(":engine-core"))
     api(project(":shared:theme"))
+    implementation(project(":shared:flexi"))
     implementation(project(":shared:utils-android"))
 }

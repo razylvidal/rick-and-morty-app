@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+//        maven("https://plugins.gradle.org/m2/")
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +11,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://plugins.gradle.org/m2/")
+//        maven("https://jitpack.io")
     }
 }
 
@@ -22,3 +25,4 @@ include(":feature-episodes")
 include(":feature-appsetting")
 include(":shared:theme")
 include(":shared:utils-android")
+include(":shared:flexi")

@@ -10,12 +10,17 @@ appcompat = "1.6.1"
 material = "1.8.0"
 detekt = "1.23.1"
 ktlint = "12.1.0"
-hilt = "2.45"
+hilt = "2.49"
 gson = "2.10.1"
 retrofit = "2.9.0"
 room = "2.6.1"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
+flexiAdapter = "5.1.0"
+flexiAdapterUi = "1.0.0"
+constraintlayout = "2.1.4"
+timber = "5.0.1"
+
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -24,6 +29,8 @@ androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber"}
 
 # Hilt
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
@@ -41,6 +48,14 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room"}
 # Navigation Fragment
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragment"}
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUi"}
+
+# FlexiAdapter
+flexiadapter = { module = "eu.davidea:flexible-adapter", version.ref = "flexiAdapter" }
+flexiadapter-ui = { module = "eu.davidea:flexible-adapter-ui", version.ref = "flexiAdapterUi" }
+
+
+
+
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
