@@ -6,8 +6,7 @@ import com.codesthetic.engine.core.characters.domain.Character
  * Created by razylvidal on February 05, 2024
  */
 class CharactersPresenter : CharactersContract.Presenter {
-
-    private var view : CharactersContract.View? = null
+    private var view: CharactersContract.View? = null
 
     override fun onViewReady(view: CharactersContract.View) {
         this.view = view
@@ -36,6 +35,4 @@ class CharactersPresenter : CharactersContract.Presenter {
     override fun onCharacterClicked() {
         TODO("Not yet implemented")
     }
-
-
 }

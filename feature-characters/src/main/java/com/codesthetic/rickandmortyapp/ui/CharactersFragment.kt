@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment(), CharactersContract.View {
-
     @Inject
     lateinit var presenter: CharactersPresenter
 
@@ -23,21 +22,19 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         CharacterFragmentBinding.inflate(layoutInflater)
     }
 
-    private val adapter by lazy {
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View =  binding.root
+    ): View = binding.root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.onViewReady(this)
-
     }
 
     override fun onDestroy() {
