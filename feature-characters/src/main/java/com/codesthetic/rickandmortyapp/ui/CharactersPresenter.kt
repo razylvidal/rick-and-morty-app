@@ -1,6 +1,7 @@
 package com.codesthetic.rickandmortyapp.ui
 
 import com.codesthetic.engine.core.characters.domain.Character
+import com.codesthetic.engine.core.characters.domain.usecases.GetCharactersUseCase
 import javax.inject.Inject
 
 /**
@@ -8,7 +9,9 @@ import javax.inject.Inject
  */
 class CharactersPresenter
     @Inject
-    constructor() : CharactersContract.Presenter {
+    constructor(
+        private val getCharactersUseCase: GetCharactersUseCase,
+    ) : CharactersContract.Presenter {
         private var view: CharactersContract.View? = null
 
         override fun onViewReady(view: CharactersContract.View) {
@@ -17,6 +20,9 @@ class CharactersPresenter
 
         override fun onDestroy() {
             this.view = null
+        }
+
+        private fun setUpCharacters()  {
         }
 
         override fun onUpdateCharacters(characters: List<Character>) {
