@@ -11,9 +11,15 @@ class GetEpisodeUseCase
     @Inject
     constructor(
         private val gateway: EpisodeGateway,
+        private val fetchEpisodesUseCase: FetchEpisodesUseCase,
     ) {
         suspend fun get(): List<Episode> {
-            return gateway.get()
+            return try {
+                gateway.get()
+            } catch (exception: Exception) {
+                fetchEpisodesUseCase.fetch()
+                gateway.get()
+            }
         }
 
         suspend fun get(id: Int): Episode {

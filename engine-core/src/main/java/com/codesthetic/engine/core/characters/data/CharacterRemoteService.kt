@@ -6,6 +6,6 @@ import retrofit2.http.GET
  * Created by razylvidal on September 08, 2023
  */
 interface CharacterRemoteService {
-    @GET("/character")
+    @GET("character")
     suspend fun fetch(): CharactersResult
 }

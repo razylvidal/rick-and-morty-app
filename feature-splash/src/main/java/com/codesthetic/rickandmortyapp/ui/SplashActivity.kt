@@ -13,7 +13,6 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity(), SplashContract.View {
-
     private val binding by lazy {
         ActivitySplashBinding.inflate(layoutInflater)
     }
@@ -24,7 +23,6 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         presenter.onViewReady(this)
     }
 
@@ -52,6 +50,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
     }
 
     override fun navigateToMainActivity() {
+        // TODO("Not yet implemented")
     }
 
     override fun onDestroy() {

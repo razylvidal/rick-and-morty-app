@@ -26,9 +26,9 @@ class CharacterDB(
     @ColumnInfo(name = "image_url")
     val imageURL: String,
     @ColumnInfo(name = "origin")
-    val origin: Int,
+    val origin: Int?,
     @ColumnInfo(name = "location")
-    val location: Int,
+    val location: Int?,
     @ColumnInfo(name = "url")
     val url: String,
     @ColumnInfo(name = "episodes")

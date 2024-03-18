@@ -50,8 +50,9 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    implementation(libs.retrofit)
-    implementation(libs.gson.converter)
+    api(libs.retrofit)
+    api(libs.gson.converter)
+    api(libs.retrofit.converter.gson)
 
     // Room
     implementation(libs.bundles.room.database)

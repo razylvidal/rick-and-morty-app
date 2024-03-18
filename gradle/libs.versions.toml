@@ -39,7 +39,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 # Retrofit
 gson-converter = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 # Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room"}
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}

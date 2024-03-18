@@ -11,9 +11,15 @@ class GetLocationUseCase
     @Inject
     constructor(
         private val gateway: LocationGateway,
+        private val fetchLocationUseCase: FetchLocationUseCase,
     ) {
         suspend fun get(): List<Location> {
-            return gateway.get()
+            return try {
+                gateway.get()
+            } catch (exception: Exception) {
+                fetchLocationUseCase.fetch()
+                gateway.get()
+            }
         }
 
         suspend fun get(id: Int): Location {

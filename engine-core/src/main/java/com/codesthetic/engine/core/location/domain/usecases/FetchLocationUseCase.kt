@@ -13,8 +13,10 @@ class FetchLocationUseCase
         private val gateway: LocationGateway,
     ) {
         suspend fun fetch(): List<Location> {
-            return gateway.fetch().also {
-                gateway.save(it)
-            }
+            return gateway.fetch()
+
+//                .also {
+//                gateway.save(it)
+//            }
         }
     }

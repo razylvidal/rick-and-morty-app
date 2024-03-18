@@ -1,12 +1,14 @@
+@file:Suppress("MagicNumber")
+
 package com.codesthetic.rickandmortyapp.ui
 
-import com.codesthetic.engine.core.characters.domain.usecases.FetchCharactersUseCase
-import com.codesthetic.engine.core.episodes.domain.usecases.FetchEpisodesUseCase
-import com.codesthetic.engine.core.location.domain.usecases.FetchLocationUseCase
+import android.util.Log
+import com.codesthetic.engine.core.characters.domain.usecases.GetCharactersUseCase
+import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodeUseCase
+import com.codesthetic.engine.core.location.domain.usecases.GetLocationUseCase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.net.ConnectException
 import javax.inject.Inject
 
 /**
@@ -15,9 +17,9 @@ import javax.inject.Inject
 class SplashPresenter
     @Inject
     constructor(
-        private val fetchCharactersUseCase: FetchCharactersUseCase,
-        private val fetchEpisodesUseCase: FetchEpisodesUseCase,
-        private val fetchLocationUseCase: FetchLocationUseCase,
+        private val getCharactersUseCase: GetCharactersUseCase,
+        private val getEpisodeUseCase: GetEpisodeUseCase,
+        private val getLocationUseCase: GetLocationUseCase,
     ) : SplashContract.Presenter {
         private var view: SplashContract.View? = null
 
@@ -29,27 +31,22 @@ class SplashPresenter
         }
 
         private fun initializeData() {
+            view?.showLoadingBar()
             view?.updateProgressIndicator(10)
             scope.launch {
                 try {
-                    fetchCharactersUseCase.fetch()
-                    view?.updateProgressIndicator(40)
-                    fetchEpisodesUseCase.fetch()
-                    view?.updateProgressIndicator(70)
-                    fetchLocationUseCase.fetch()
-                    view?.updateProgressIndicator(100)
                     delay(1000L)
+                    Log.e(">>>", "PRESENTER")
+                    getCharactersUseCase.get()
+                    view?.updateProgressIndicator(40)
+                    getEpisodeUseCase.get()
+                    view?.updateProgressIndicator(70)
+                    getLocationUseCase.get()
+                    view?.updateProgressIndicator(100)
                     view?.showToast("Done!")
                 } catch (exception: Exception) {
-                    when (exception) {
-                        is ConnectException -> {
-                            view?.showToast("${exception.message}")
-                        }
-
-                        else -> {
-                            view?.showToast("${exception.message}")
-                        }
-                    }
+                    view?.showToast("${exception.message}")
+                    Log.e("ERROR", "$exception")
                 }
             }
         }

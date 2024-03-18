@@ -16,12 +16,16 @@ fun CharactersResult.CharacterRaw.toDomain() =
         origin = origin.url.getID(),
         location = location.url.getID(),
         image = image,
-        episode = episode.map { it.getID() },
+        episode = episode.map { it.getID()!! },
         url = url
     )
 
-private fun String.getID(): Int {
-    return this.substringAfterLast('/').toInt()
+private fun String.getID(): Int? {
+    return if (this.isNotEmpty()) {
+        this.substringAfterLast('/').toInt()
+    } else {
+        null
+    }
 }
 
 fun Character.toDB() =

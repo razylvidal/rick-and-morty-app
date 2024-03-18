@@ -1,5 +1,6 @@
 package com.codesthetic.engine.core.location.data
 
+import android.util.Log
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
 import javax.inject.Inject
@@ -14,7 +15,10 @@ class LocationRepository
         private val dao: LocationDao,
     ) : LocationGateway {
         override suspend fun fetch(): List<Location> {
-            return api.fetch().locations.map { it.toDomain() }
+            Log.e("Location", "location")
+            val result = api.fetch().locations.map { it.toDomain() }
+            Log.e("Location", "success")
+            return result
         }
 
         override suspend fun get(): List<Location> {

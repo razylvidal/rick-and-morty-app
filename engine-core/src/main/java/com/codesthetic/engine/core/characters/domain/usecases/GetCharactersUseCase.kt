@@ -11,8 +11,14 @@ class GetCharactersUseCase
     @Inject
     constructor(
         private val gateway: CharacterGateway,
+        private val fetchCharactersUseCase: FetchCharactersUseCase,
     ) {
         suspend fun get(): List<Character> {
-            return gateway.get()
+            return try {
+                gateway.get()
+            } catch (exception: NullPointerException) {
+                fetchCharactersUseCase.fetch()
+                gateway.get()
+            }
         }
     }

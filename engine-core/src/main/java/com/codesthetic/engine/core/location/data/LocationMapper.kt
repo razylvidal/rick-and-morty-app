@@ -17,7 +17,11 @@ fun LocationResult.LocationRaw.toDomain() =
     )
 
 private fun String.getID(): Int {
-    return this.substringAfterLast('/').toInt()
+    return if (this.isNotEmpty()) {
+        this.substringAfterLast('/').toInt()
+    } else {
+        0
+    }
 }
 
 fun LocationDB.toDomain() =

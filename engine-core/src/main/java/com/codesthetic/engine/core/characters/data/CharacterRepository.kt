@@ -1,5 +1,6 @@
 package com.codesthetic.engine.core.characters.data
 
+import android.util.Log
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.characters.domain.CharacterGateway
 import javax.inject.Inject
@@ -14,15 +15,14 @@ class CharacterRepository
         private val dao: CharacterDao,
     ) : CharacterGateway {
         override suspend fun fetch(): List<Character> {
-            return api.fetch().characters.map { it.toDomain() }
+            Log.e("Characters", "Characters")
+            val result = api.fetch().characters.map { it.toDomain() }
+            Log.e("Characters", "success")
+            return result
         }
 
         override suspend fun get(): List<Character> {
-            return try {
-                api.fetch().characters.map { it.toDomain() }
-            } catch (ex: Exception) {
-                throw ex.fillInStackTrace()
-            }
+            return dao.get().map { it.toDomain() }
         }
 
         override fun get(id: Int): Character {
