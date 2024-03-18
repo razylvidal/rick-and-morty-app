@@ -2,7 +2,6 @@
 
 package com.codesthetic.rickandmortyapp.ui
 
-import android.util.Log
 import com.codesthetic.engine.core.characters.domain.usecases.GetCharactersUseCase
 import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodeUseCase
 import com.codesthetic.engine.core.location.domain.usecases.GetLocationUseCase
@@ -36,17 +35,15 @@ class SplashPresenter
             scope.launch {
                 try {
                     delay(1000L)
-                    Log.e(">>>", "PRESENTER")
                     getCharactersUseCase.get()
                     view?.updateProgressIndicator(40)
                     getEpisodeUseCase.get()
                     view?.updateProgressIndicator(70)
                     getLocationUseCase.get()
                     view?.updateProgressIndicator(100)
-                    view?.showToast("Done!")
+                    view?.navigateToMainActivity()
                 } catch (exception: Exception) {
                     view?.showToast("${exception.message}")
-                    Log.e("ERROR", "$exception")
                 }
             }
         }

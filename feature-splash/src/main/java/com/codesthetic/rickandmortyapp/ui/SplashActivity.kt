@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.codesthetic.engine.AppNavigator
 import com.codesthetic.feature_splash.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -19,6 +20,9 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
     @Inject
     lateinit var presenter: SplashPresenter
+
+    @Inject
+    lateinit var navigator: AppNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +54,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
     }
 
     override fun navigateToMainActivity() {
-        // TODO("Not yet implemented")
+        navigator.navigateToMain(this)
     }
 
     override fun onDestroy() {

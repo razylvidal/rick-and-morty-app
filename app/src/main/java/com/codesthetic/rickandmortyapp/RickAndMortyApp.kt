@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.codesthetic.rickandmortyapp
 
 import android.app.Application
