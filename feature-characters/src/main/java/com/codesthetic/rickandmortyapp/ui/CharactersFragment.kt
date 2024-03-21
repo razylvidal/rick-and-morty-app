@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.feature_characters.databinding.CharacterFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
 import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
@@ -75,26 +76,26 @@ class CharactersFragment : Fragment(), CharactersContract.View {
     }
 
     override fun hideLoading() {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun showFilter() {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 
     override fun hideFilter() {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 
-    override fun showCharacters() {
-        TODO("Not yet implemented")
+    override fun showCharacters(characters : List<Character>) {
+        // TODO("Not yet implemented")
     }
 
     override fun showEmptyState() {
-        TODO("Not yet implemented")
+       // TODO("Not yet implemented")
     }
 
     override fun navigateToCharacter() {
-        TODO("Not yet implemented")
+      //  TODO("Not yet implemented")
     }
 }

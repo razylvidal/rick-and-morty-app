@@ -15,7 +15,7 @@ interface CharactersContract {
 
         fun hideFilter()
 
-        fun showCharacters()
+        fun showCharacters(characters : List<Character>)
 
         fun showEmptyState()
 
