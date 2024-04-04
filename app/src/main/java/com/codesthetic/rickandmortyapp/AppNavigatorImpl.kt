@@ -12,7 +12,7 @@ import javax.inject.Inject
 class AppNavigatorImpl @Inject constructor(
     private val context: Context
 ) : AppNavigator {
-
+// test
     override fun navigateToMain(activity: Activity) {
         val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)
