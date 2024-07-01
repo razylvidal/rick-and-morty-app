@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
  * Created by razylvidal on December 21, 2023
  */
 data class LocationResult(
-    @SerializedName("result")
+    @SerializedName("results")
     val locations: List<LocationRaw>,
 ) {
     data class LocationRaw(

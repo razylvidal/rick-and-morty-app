@@ -1,7 +1,9 @@
 package com.codesthetic.engine.core.episodes.data
 
+import android.util.Log
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.engine.core.episodes.domain.EpisodeGateway
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import javax.inject.Inject
 
 /**
@@ -14,11 +16,14 @@ class EpisodeRepository
         private val dao: EpisodeDao,
     ) : EpisodeGateway {
         override suspend fun fetch(): List<Episode> {
-            return api.fetch().episodes.map { it.toDomain() }
+            Log.e("episode", "episode")
+            val result = api.fetch().episodes.map { it.toDomain() }
+            Log.e("Episode", "success")
+            return result
         }
 
         override suspend fun get(): List<Episode> {
-            return dao.get().map { it.toDomain() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
         override suspend fun get(id: Int): Episode {

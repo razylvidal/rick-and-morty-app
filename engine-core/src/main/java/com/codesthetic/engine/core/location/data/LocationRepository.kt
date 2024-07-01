@@ -1,7 +1,9 @@
 package com.codesthetic.engine.core.location.data
 
+import android.util.Log
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import javax.inject.Inject
 
 /**
@@ -14,11 +16,14 @@ class LocationRepository
         private val dao: LocationDao,
     ) : LocationGateway {
         override suspend fun fetch(): List<Location> {
-            return api.fetch().locations.map { it.toDomain() }
+            Log.e("Location", "location")
+            val result = api.fetch().locations.map { it.toDomain() }
+            Log.e("Location", "success")
+            return result
         }
 
         override suspend fun get(): List<Location> {
-            return dao.get().map { it.toDomain() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
         override suspend fun get(id: Int): Location {

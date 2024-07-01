@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 rootProject.name = "Rick And Morty App"
 include(":app")
 include(":engine-core")
+include(":feature-splash")
 include(":feature-characters")
 include(":feature-locations")
 include(":feature-episodes")

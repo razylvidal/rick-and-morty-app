@@ -6,6 +6,6 @@ import retrofit2.http.GET
  * Created by razylvidal on December 21, 2023
  */
 interface EpisodeRemoteService {
-    @GET("/episode")
+    @GET("episode")
     suspend fun fetch(): EpisodeResult
 }

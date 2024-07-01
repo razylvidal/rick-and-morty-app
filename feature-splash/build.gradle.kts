@@ -1,6 +1,6 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.application)
+    alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
@@ -9,17 +9,14 @@ plugins {
 }
 
 android {
-    namespace = "com.codesthetic.rickandmortyapp"
+    namespace = "com.codesthetic.feature_splash"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.codesthetic.rickandmortyapp"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -41,7 +38,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true
     }
 }
 
@@ -54,22 +50,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    // Module
-    implementation(project(":feature-splash"))
-    implementation(project(":feature-characters"))
-    implementation(project(":feature-episodes"))
-    implementation(project(":feature-locations"))
-    implementation(project(":feature-appsetting"))
-
-    // Hilt
-    api(libs.hilt)
+    implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    // Room
-    implementation(libs.bundles.room.database)
-    kapt(libs.room.compiler)
-
-    // Navigation Fragments
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
+    api(project(":engine-core"))
+    api(project(":shared:theme"))
 }

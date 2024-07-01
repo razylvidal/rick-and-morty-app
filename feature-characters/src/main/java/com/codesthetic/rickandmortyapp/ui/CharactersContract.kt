@@ -15,7 +15,10 @@ interface CharactersContract {
 
         fun hideFilter()
 
-        fun showCharacters()
+        fun showCharacters(
+            characters: List<Character>,
+            allItemsLoaded: Boolean,
+        )
 
         fun showEmptyState()
 
@@ -36,5 +39,7 @@ interface CharactersContract {
         fun onApplyFilters()
 
         fun onCharacterClicked(id: Int)
+
+        fun onLoadMore(currentItemSize: Int)
     }
 }

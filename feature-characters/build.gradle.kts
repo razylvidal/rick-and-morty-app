@@ -54,6 +54,7 @@ dependencies {
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.coil)
 
     api(project(":engine-core"))
     api(project(":shared:theme"))
