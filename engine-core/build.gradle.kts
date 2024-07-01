@@ -59,4 +59,7 @@ dependencies {
     kapt(libs.room.compiler)
 
     api(libs.timber)
+
+    implementation(libs.paging.common)
+    implementation(libs.paging.runtime)
 }

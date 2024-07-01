@@ -2,9 +2,9 @@
 
 package com.codesthetic.rickandmortyapp.ui
 
-import com.codesthetic.engine.core.characters.domain.usecases.GetCharactersUseCase
-import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodeUseCase
-import com.codesthetic.engine.core.location.domain.usecases.GetLocationUseCase
+import com.codesthetic.engine.core.characters.domain.usecases.LoadCharactersUseCase
+import com.codesthetic.engine.core.episodes.domain.usecases.LoadEpisodeUseCase
+import com.codesthetic.engine.core.location.domain.usecases.LoadLocationUseCase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,9 +16,9 @@ import javax.inject.Inject
 class SplashPresenter
     @Inject
     constructor(
-        private val getCharactersUseCase: GetCharactersUseCase,
-        private val getEpisodeUseCase: GetEpisodeUseCase,
-        private val getLocationUseCase: GetLocationUseCase,
+        private val loadCharactersUseCase: LoadCharactersUseCase,
+        private val getEpisodeUseCase: LoadEpisodeUseCase,
+        private val getLocationUseCase: LoadLocationUseCase,
     ) : SplashContract.Presenter {
         private var view: SplashContract.View? = null
 
@@ -35,7 +35,7 @@ class SplashPresenter
             scope.launch {
                 try {
                     delay(1000L)
-                    getCharactersUseCase.get()
+                    loadCharactersUseCase.load()
                     view?.updateProgressIndicator(40)
                     getEpisodeUseCase.get()
                     view?.updateProgressIndicator(70)

@@ -3,6 +3,7 @@ package com.codesthetic.engine.core.location.data
 import android.util.Log
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import javax.inject.Inject
 
 /**
@@ -22,7 +23,7 @@ class LocationRepository
         }
 
         override suspend fun get(): List<Location> {
-            return dao.get().map { it.toDomain() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
         override suspend fun get(id: Int): Location {

@@ -9,14 +9,15 @@ import javax.inject.Inject
 /**
  * Created by razylvidal on March 18, 2024
  */
-class AppNavigatorImpl @Inject constructor(
-    private val context: Context
-) : AppNavigator {
+class AppNavigatorImpl
+    @Inject
+    constructor(
+        private val context: Context,
+    ) : AppNavigator {
 // test
-    override fun navigateToMain(activity: Activity) {
-        val intent = Intent(activity, MainActivity::class.java)
-        activity.startActivity(intent)
-        activity.finishAffinity()
+        override fun navigateToMain(activity: Activity) {
+            val intent = Intent(activity, MainActivity::class.java)
+            activity.startActivity(intent)
+            activity.finishAffinity()
+        }
     }
-
-}

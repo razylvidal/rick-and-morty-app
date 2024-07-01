@@ -1,8 +1,8 @@
 package com.codesthetic.engine.core.characters.data
 
-import android.util.Log
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.characters.domain.CharacterGateway
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import javax.inject.Inject
 
 /**
@@ -14,15 +14,12 @@ class CharacterRepository
         private val api: CharacterRemoteService,
         private val dao: CharacterDao,
     ) : CharacterGateway {
-        override suspend fun fetch(): List<Character> {
-            Log.e("Characters", "Characters")
-            val result = api.fetch().characters.map { it.toDomain() }
-            Log.e("Characters", "success")
-            return result
+        override suspend fun fetch(page: Int): List<Character> {
+            return api.fetch(page).characters.map { it.toDomain() }
         }
 
         override suspend fun get(): List<Character> {
-            return dao.get().map { it.toDomain() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
         override fun get(id: Int): Character {
