@@ -6,22 +6,9 @@ import com.google.gson.annotations.SerializedName
  * Created by razylvidal on September 08, 2023
  */
 data class CharactersResult(
-    @SerializedName("info")
-    val info: InfoRaw,
     @SerializedName("results")
     val characters: List<CharacterRaw>,
 ) {
-    data class InfoRaw(
-        @SerializedName("count")
-        val count: Int,
-        @SerializedName("pages")
-        val pages: Int,
-        @SerializedName("next")
-        val nextPage: String?,
-        @SerializedName("prev")
-        val prevPage: String?,
-    )
-
     data class CharacterRaw(
         @SerializedName("id")
         val id: Int,

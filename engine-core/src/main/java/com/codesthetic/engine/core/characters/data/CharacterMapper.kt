@@ -43,8 +43,6 @@ fun Character.toDB() =
         url = url
     )
 
-// Test
-
 fun CharacterDB.toDomain() =
     Character(
         id = id,
