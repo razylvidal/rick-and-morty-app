@@ -22,6 +22,7 @@ constraintlayout = "2.1.4"
 timber = "5.0.1"
 coil = "2.6.0"
 paging = "3.3.0"
+chucker = "4.0.0"
 
 
 [libraries]
@@ -62,6 +63,10 @@ coil = { module = "io.coil-kt:coil", version.ref = "coil"}
 # Paging
 paging-common = {module = "androidx.paging:paging-common", version.ref = "paging"}
 paging-runtime = {module = "androidx.paging:paging-runtime", version.ref = "paging"}
+
+# Chucker
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chucker-noop = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker"}
 
 
 [plugins]

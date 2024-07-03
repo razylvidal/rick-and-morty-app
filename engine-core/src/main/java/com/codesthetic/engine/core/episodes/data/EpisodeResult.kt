@@ -6,9 +6,18 @@ import com.google.gson.annotations.SerializedName
  * Created by razylvidal on December 20, 2023
  */
 data class EpisodeResult(
+    @SerializedName("info")
+    val info: InfoRaw,
     @SerializedName("results")
     val episodes: List<EpisodeRaw>,
 ) {
+    data class InfoRaw(
+        @SerializedName("count")
+        val count: Int,
+        @SerializedName("pages")
+        val pages: Int,
+    )
+
     data class EpisodeRaw(
         @SerializedName("id")
         val id: Int,

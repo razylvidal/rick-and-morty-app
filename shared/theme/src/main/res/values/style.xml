@@ -14,4 +14,10 @@
         <item name="android:navigationBarColor">@color/color_overlay_background</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CornerCut" parent="">
+
+        <item name="cornerSize">10%</item>
+
+    </style>
 </resources>

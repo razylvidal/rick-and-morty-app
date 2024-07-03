@@ -14,7 +14,7 @@ interface EpisodeDao {
     fun save(episode: EpisodeDB)
 
     @Query("SELECT * FROM episodes WHERE id =:id LIMIT 1")
-    fun get(id: Int): EpisodeDB
+    fun get(id: Int): EpisodeDB?
 
     @Query("SELECT * FROM episodes")
     fun get(): List<EpisodeDB>

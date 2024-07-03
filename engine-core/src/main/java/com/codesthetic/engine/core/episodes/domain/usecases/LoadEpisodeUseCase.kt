@@ -1,5 +1,6 @@
 package com.codesthetic.engine.core.episodes.domain.usecases
 
+import android.util.Log
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.engine.core.episodes.domain.EpisodeGateway
 import com.codesthetic.engine.exception.NoSuchDataExistException
@@ -18,12 +19,8 @@ class LoadEpisodeUseCase
             return try {
                 gateway.get()
             } catch (exception: NoSuchDataExistException) {
+                Log.e("NoSuchDataExistException", exception.message.toString())
                 fetchEpisodesUseCase.fetch()
-                gateway.get()
             }
-        }
-
-        suspend fun get(id: Int): Episode {
-            return gateway.get(id)
         }
     }

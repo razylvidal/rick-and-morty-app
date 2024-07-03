@@ -6,9 +6,9 @@ package com.codesthetic.engine.core.episodes.domain
 interface EpisodeGateway {
     suspend fun fetch(): List<Episode>
 
-    suspend fun get(): List<Episode>
+    fun get(): List<Episode>
 
-    suspend fun get(id: Int): Episode
+    fun get(id: Int): Episode
 
     suspend fun save(episode: Episode)
 }

@@ -72,4 +72,8 @@ dependencies {
     // Navigation Fragments
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+
+    // Chucker
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chucker.noop)
 }

@@ -18,7 +18,7 @@ interface LocationDao {
     fun get(): List<LocationDB>
 
     @Query("SELECT * FROM location WHERE id=:id")
-    fun get(id: Int): LocationDB
+    fun get(id: Int): LocationDB?
 
     @Query("DELETE FROM location")
     fun clear()

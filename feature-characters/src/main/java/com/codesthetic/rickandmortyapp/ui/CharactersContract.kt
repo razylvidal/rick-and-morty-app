@@ -22,7 +22,7 @@ interface CharactersContract {
 
         fun showEmptyState()
 
-        fun navigateToCharacter()
+        fun navigateToCharacter(id: Int)
     }
 
     interface Presenter {

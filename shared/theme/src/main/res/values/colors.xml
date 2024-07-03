@@ -10,4 +10,5 @@
     <color name="color_unselected">#FF616060</color>
     <color name="color_overlay_background">#B3000000</color>
     <color name="color_splash_background">#FF0F0317</color>
+    <color name="color_divider_color">#FF282727</color>
 </resources>

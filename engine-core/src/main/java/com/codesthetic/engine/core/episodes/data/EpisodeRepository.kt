@@ -16,21 +16,29 @@ class EpisodeRepository
         private val dao: EpisodeDao,
     ) : EpisodeGateway {
         override suspend fun fetch(): List<Episode> {
-            Log.e("episode", "episode")
-            val result = api.fetch().episodes.map { it.toDomain() }
-            Log.e("Episode", "success")
-            return result
+            var currentPage = INITIAL_PAGE
+            val response = api.fetch(INITIAL_PAGE)
+            val episodes = response.episodes.toMutableList()
+            while (++currentPage <= response.info.pages) {
+                episodes += api.fetch(currentPage).episodes
+                Log.e("currentPage Episode", "$currentPage")
+            }
+            return episodes.map { it.toDomain() }.toList()
         }
 
-        override suspend fun get(): List<Episode> {
+        override fun get(): List<Episode> {
             return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
-        override suspend fun get(id: Int): Episode {
-            return dao.get(id = id).toDomain()
+        override fun get(id: Int): Episode {
+            return dao.get(id = id)?.toDomain() ?: throw NoSuchDataExistException()
         }
 
         override suspend fun save(episode: Episode) {
             dao.save(episode.toDB())
+        }
+
+        companion object {
+            private const val INITIAL_PAGE = 1
         }
     }

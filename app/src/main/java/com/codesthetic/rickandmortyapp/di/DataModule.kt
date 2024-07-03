@@ -21,7 +21,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -69,20 +68,6 @@ abstract class DataModule {
     @Module
     @InstallIn(SingletonComponent::class)
     object Remote {
-        private const val BASE_URL = "https://rickandmortyapi.com/api/"
-
-        @Provides
-        fun provideBaseUrl(): String = BASE_URL
-
-        @Provides
-        @Singleton
-        fun providesRetrofitService(baseURl: String): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl(baseURl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-
         @Provides
         fun provideCharacterRemoteService(retrofit: Retrofit): CharacterRemoteService {
             return retrofit.create(CharacterRemoteService::class.java)

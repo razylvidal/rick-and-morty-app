@@ -18,12 +18,12 @@ class CharacterRepository
             return api.fetch(page).characters.map { it.toDomain() }
         }
 
-        override suspend fun get(): List<Character> {
+        override fun get(): List<Character> {
             return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
         }
 
         override fun get(id: Int): Character {
-            return dao.get(id).toDomain()
+            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException()
         }
 
         override suspend fun save(character: Character) {

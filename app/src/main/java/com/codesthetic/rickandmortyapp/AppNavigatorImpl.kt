@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.codesthetic.engine.AppNavigator
+import com.codesthetic.rickandmortyapp.ui.characterdetails.CharacterDetailsActivity
 import javax.inject.Inject
 
 /**
@@ -14,10 +15,18 @@ class AppNavigatorImpl
     constructor(
         private val context: Context,
     ) : AppNavigator {
-// test
         override fun navigateToMain(activity: Activity) {
             val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)
             activity.finishAffinity()
+        }
+
+        override fun navigateToCharacterDetails(
+            activity: Activity,
+            id: Int,
+        ) {
+            val intent = Intent(activity, CharacterDetailsActivity::class.java)
+            intent.putExtra(CharacterDetailsActivity.KEY_CHARACTER_ID, id)
+            activity.startActivity(intent)
         }
     }

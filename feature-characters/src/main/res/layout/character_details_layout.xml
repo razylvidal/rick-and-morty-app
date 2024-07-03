@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/details"
+        android:textColor="@color/color_on_primary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/name"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/tvDetails"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/lato_regular"
+        tools:text="Morty Smith"
+        android:textColor="@color/color_on_primary"
+        android:layout_toEndOf="@id/name"
+        android:layout_below="@id/tvDetails"
+        android:textSize="16sp"
+        />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_divider_color"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/name"
+        android:layout_marginHorizontal="24dp"
+        />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/status"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/divider1"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        tools:text="Alive"
+        android:textColor="@color/color_primary_variant"
+        android:layout_toEndOf="@id/status"
+        android:layout_below="@id/divider1"
+        android:textSize="16sp"
+        />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_divider_color"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/status"
+        android:layout_marginHorizontal="24dp"
+        />
+
+    <TextView
+        android:id="@+id/species"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/species"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/divider2"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvSpecies"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        tools:text="Human"
+        android:textColor="@color/color_on_primary"
+        android:layout_toEndOf="@id/species"
+        android:layout_below="@id/divider2"
+        android:textSize="16sp"
+        />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_divider_color"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/species"
+        android:layout_marginHorizontal="24dp"
+        />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/location"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/divider3"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        tools:text="Earth"
+        android:textColor="@color/color_on_primary"
+        android:layout_toEndOf="@id/location"
+        android:layout_below="@id/divider3"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/baseline_keyboard_arrow_right_24" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_divider_color"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/location"
+        android:layout_marginHorizontal="24dp"
+        />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/gender"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/divider4"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        tools:text="Male"
+        android:textColor="@color/color_on_primary"
+        android:layout_toEndOf="@id/gender"
+        android:layout_below="@id/divider4"
+        android:textSize="16sp"/>
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_divider_color"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/gender"
+        android:layout_marginHorizontal="24dp"
+        />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/type"
+        android:textColor="@color/color_on_primary"
+        android:layout_below="@+id/divider5"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:textColor="@color/color_on_primary"
+        android:layout_toEndOf="@id/type"
+        android:layout_below="@id/divider5"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/type"/>
+
+</RelativeLayout>

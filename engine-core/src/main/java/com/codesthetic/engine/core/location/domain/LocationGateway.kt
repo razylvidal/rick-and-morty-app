@@ -10,7 +10,7 @@ interface LocationGateway {
 
     suspend fun get(id: Int): Location
 
-    suspend fun save(locations: List<Location>)
+    fun save(locations: Location)
 
     fun clear()
 }

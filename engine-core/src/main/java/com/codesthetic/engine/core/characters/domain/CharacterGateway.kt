@@ -6,7 +6,7 @@ package com.codesthetic.engine.core.characters.domain
 interface CharacterGateway {
     suspend fun fetch(page: Int): List<Character>
 
-    suspend fun get(): List<Character>
+    fun get(): List<Character>
 
     fun get(id: Int): Character
 

@@ -15,7 +15,7 @@ interface CharacterDao {
     fun get(): List<CharacterDB>
 
     @Query("SELECT * FROM characters WHERE id = :id")
-    fun get(id: Int): CharacterDB
+    fun get(id: Int): CharacterDB?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(character: CharacterDB)

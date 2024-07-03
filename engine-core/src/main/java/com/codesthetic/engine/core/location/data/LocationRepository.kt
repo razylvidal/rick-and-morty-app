@@ -16,10 +16,14 @@ class LocationRepository
         private val dao: LocationDao,
     ) : LocationGateway {
         override suspend fun fetch(): List<Location> {
-            Log.e("Location", "location")
-            val result = api.fetch().locations.map { it.toDomain() }
-            Log.e("Location", "success")
-            return result
+            var currentPage = INITIAL_PAGE
+            val response = api.fetch(INITIAL_PAGE)
+            val locations = response.locations.toMutableList()
+            while (++currentPage <= response.info.pages) {
+                locations += api.fetch(currentPage).locations
+                Log.e("location page", "$currentPage")
+            }
+            return locations.map { it.toDomain() }.toList()
         }
 
         override suspend fun get(): List<Location> {
@@ -27,14 +31,18 @@ class LocationRepository
         }
 
         override suspend fun get(id: Int): Location {
-            return dao.get(id).toDomain()
+            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException()
         }
 
-        override suspend fun save(locations: List<Location>) {
-            locations.map { dao.save(it.toDB()) }
+        override fun save(locations: Location) {
+            dao.save(locations.toDB())
         }
 
         override fun clear() {
             dao.clear()
+        }
+
+        companion object {
+            private const val INITIAL_PAGE = 1
         }
     }

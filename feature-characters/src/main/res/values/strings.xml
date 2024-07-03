@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="rick_and_morty">Rick and Morty</string>
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="location">Location</string>
+    <string name="gender">Gender</string>
+    <string name="type">Type</string>
 </resources>

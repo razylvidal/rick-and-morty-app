@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    android:orientation="vertical">
+
+    <Toolbar
+        android:id="@+id/tbCharacterDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCharacterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:textAppearance="@font/lato_thin_italic"
+            android:textColor="@color/color_on_primary"
+            android:textSize="25sp"
+            app:drawableLeftCompat="@drawable/baseline_arrow_back_24"
+            app:drawableRightCompat="@drawable/baseline_favorite_border_24"
+            tools:text="Morty Smith" />
+
+    </Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/sivCharacterImage"
+                android:layout_width="253dp"
+                android:layout_height="241dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="26dp"
+                app:shapeAppearance="@style/CornerCut"
+                app:strokeWidth="2dp"
+                tools:src="@drawable/image_placeholder"
+                app:strokeColor="@color/color_secondary_variant" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="19dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/episodes"
+                android:textColor="@color/color_on_primary"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEpisodes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="19dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/episode_item_layout" />
+
+            <include
+                android:id="@+id/characterDetails"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="32dp"
+                layout="@layout/character_details_layout"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

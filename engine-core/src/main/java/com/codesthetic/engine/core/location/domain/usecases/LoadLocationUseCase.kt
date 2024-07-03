@@ -1,5 +1,6 @@
 package com.codesthetic.engine.core.location.domain.usecases
 
+import android.util.Log
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
 import com.codesthetic.engine.exception.NoSuchDataExistException
@@ -18,12 +19,12 @@ class LoadLocationUseCase
             return try {
                 gateway.get()
             } catch (exception: NoSuchDataExistException) {
+                Log.e("LoadLocationUseCase", "NoSuchDataExistException")
                 fetchLocationUseCase.fetch()
-                gateway.get()
             }
         }
 
-        suspend fun get(id: Int): Location {
-            return gateway.get(id)
+        companion object {
+            private const val DEFAULT_PAGE_SIZE = 20
         }
     }

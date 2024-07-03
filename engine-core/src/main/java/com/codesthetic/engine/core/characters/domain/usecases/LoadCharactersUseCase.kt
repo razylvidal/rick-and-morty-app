@@ -19,7 +19,6 @@ class LoadCharactersUseCase
                 gateway.get()
             } catch (exception: NoSuchDataExistException) {
                 fetchCharactersUseCase.fetch()
-                gateway.get()
             }
         }
     }

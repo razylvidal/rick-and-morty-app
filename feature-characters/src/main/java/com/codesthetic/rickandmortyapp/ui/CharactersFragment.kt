@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import com.codesthetic.engine.AppNavigator
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.feature_characters.databinding.CharacterFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
@@ -27,6 +28,9 @@ import javax.inject.Inject
 class CharactersFragment : Fragment(), CharactersContract.View {
     @Inject
     lateinit var presenter: CharactersPresenter
+
+    @Inject
+    lateinit var navigator: AppNavigator
 
     private val binding by lazy {
         CharacterFragmentBinding.inflate(layoutInflater)
@@ -154,7 +158,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         // TODO("Not yet implemented")
     }
 
-    override fun navigateToCharacter() {
-        //  TODO("Not yet implemented")
+    override fun navigateToCharacter(id: Int) {
+        navigator.navigateToCharacterDetails(requireActivity(), id)
     }
 }

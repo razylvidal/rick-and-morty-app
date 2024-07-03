@@ -7,4 +7,9 @@ import android.app.Activity
  */
 interface AppNavigator {
     fun navigateToMain(activity: Activity)
+
+    fun navigateToCharacterDetails(
+        activity: Activity,
+        id: Int,
+    )
 }

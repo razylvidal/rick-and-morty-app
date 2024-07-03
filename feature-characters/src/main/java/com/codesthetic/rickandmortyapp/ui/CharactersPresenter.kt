@@ -57,7 +57,7 @@ class CharactersPresenter
         }
 
         override fun onCharacterClicked(id: Int) {
-            TODO("Not yet implemented")
+            view?.navigateToCharacter(id)
         }
 
         override fun onLoadMore(currentItemSize: Int) {

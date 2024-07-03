@@ -2,12 +2,14 @@
 
 package com.codesthetic.rickandmortyapp.ui
 
+import android.util.Log
 import com.codesthetic.engine.core.characters.domain.usecases.LoadCharactersUseCase
 import com.codesthetic.engine.core.episodes.domain.usecases.LoadEpisodeUseCase
 import com.codesthetic.engine.core.location.domain.usecases.LoadLocationUseCase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
 import javax.inject.Inject
 
 /**
@@ -17,12 +19,14 @@ class SplashPresenter
     @Inject
     constructor(
         private val loadCharactersUseCase: LoadCharactersUseCase,
-        private val getEpisodeUseCase: LoadEpisodeUseCase,
-        private val getLocationUseCase: LoadLocationUseCase,
+        private val loadEpisodeUseCase: LoadEpisodeUseCase,
+        private val loadLocationUseCase: LoadLocationUseCase,
     ) : SplashContract.Presenter {
         private var view: SplashContract.View? = null
 
         private val scope = MainScope()
+
+        private val mutex = Mutex()
 
         override fun onViewReady(view: SplashContract.View) {
             this.view = view
@@ -33,20 +37,26 @@ class SplashPresenter
             view?.showLoadingBar()
             view?.updateProgressIndicator(10)
             scope.launch {
+//                mutex.withLock {
                 try {
                     delay(1000L)
                     loadCharactersUseCase.load()
+                    Log.e(">>", "loadCharactersUseCase done")
                     view?.updateProgressIndicator(40)
-                    getEpisodeUseCase.get()
+                    loadEpisodeUseCase.get()
+                    Log.e(">>", "loadEpisodeUseCase done")
                     view?.updateProgressIndicator(70)
-                    getLocationUseCase.get()
+                    loadLocationUseCase.get()
+                    Log.e(">>", "loadLocationUseCase done")
                     view?.updateProgressIndicator(100)
                     view?.navigateToMainActivity()
                 } catch (exception: Exception) {
                     view?.showToast("${exception.message}")
+                    Log.e("error", "${exception.message}, ${exception.cause}")
                 }
             }
         }
+//        }
 
         override fun onDestroy() {
             this.view = null

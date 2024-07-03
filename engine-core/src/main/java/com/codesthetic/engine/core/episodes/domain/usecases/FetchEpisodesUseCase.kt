@@ -13,6 +13,10 @@ class FetchEpisodesUseCase
         private val gateway: EpisodeGateway,
     ) {
         suspend fun fetch(): List<Episode> {
-            return gateway.fetch()
+            val episodes = gateway.fetch()
+            episodes.map {
+                gateway.save(it)
+            }
+            return episodes
         }
     }

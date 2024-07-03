@@ -45,6 +45,17 @@
                 android:value="" />
         </activity>
 
+        <activity
+            android:name=".ui.characterdetails.CharacterDetailsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+            tools:ignore="LockedOrientationActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
 
     </application>
 
