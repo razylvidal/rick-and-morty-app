@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.episodes.domain.Episode
@@ -53,13 +54,13 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
 
         presenter.onViewReady(this, getCharacterId())
 
-        binding.tbCharacterDetails.setNavigationOnClickListener {
+        binding.backButton.setOnClickListener {
             requireActivity().finish()
         }
     }
 
     private fun setupRecyclerView() {
-        binding.rvEpisodes.layoutManager = LinearLayoutManager(context)
+        binding.rvEpisodes.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         binding.rvEpisodes.itemAnimator = DefaultItemAnimator()
         binding.rvEpisodes.adapter = adapter
         binding.rvEpisodes.setHasFixedSize(true)

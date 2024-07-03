@@ -1,6 +1,5 @@
 package com.codesthetic.engine.core.location.data
 
-import android.util.Log
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
 import com.codesthetic.engine.exception.NoSuchDataExistException
@@ -21,7 +20,6 @@ class LocationRepository
             val locations = response.locations.toMutableList()
             while (++currentPage <= response.info.pages) {
                 locations += api.fetch(currentPage).locations
-                Log.e("location page", "$currentPage")
             }
             return locations.map { it.toDomain() }.toList()
         }

@@ -7,33 +7,57 @@
     android:background="@color/color_background"
     android:orientation="vertical">
 
-    <Toolbar
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/tbCharacterDetails"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/color_background">
 
-        <TextView
-            android:id="@+id/tvCharacterName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:fontFamily="@font/lato_bold"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:textAppearance="@font/lato_thin_italic"
-            android:textColor="@color/color_on_primary"
-            android:textSize="25sp"
-            app:drawableLeftCompat="@drawable/baseline_arrow_back_24"
-            app:drawableRightCompat="@drawable/baseline_favorite_border_24"
-            tools:text="Morty Smith" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    </Toolbar>
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="22dp"
+                android:src="@drawable/baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/tvCharacterName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:textAppearance="@font/lato_thin_italic"
+                android:textColor="@color/color_on_primary"
+                android:textSize="25sp"
+                tools:text="Morty Smith" />
+
+            <ImageView
+                android:id="@+id/btnAddToFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="22dp"
+                android:src="@drawable/baseline_favorite_border_24" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,13 +70,13 @@
                 android:layout_width="253dp"
                 android:layout_height="241dp"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="26dp"
                 android:layout_marginTop="20dp"
                 android:scaleType="centerCrop"
-                android:layout_marginHorizontal="26dp"
                 app:shapeAppearance="@style/CornerCut"
+                app:strokeColor="@color/color_secondary_variant"
                 app:strokeWidth="2dp"
-                tools:src="@drawable/image_placeholder"
-                app:strokeColor="@color/color_secondary_variant" />
+                tools:src="@drawable/image_placeholder" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -68,7 +92,7 @@
                 android:id="@+id/rvEpisodes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="19dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -77,12 +101,11 @@
 
             <include
                 android:id="@+id/characterDetails"
+                layout="@layout/character_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginTop="32dp"
-                layout="@layout/character_details_layout"
-                />
+                android:layout_weight="1" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

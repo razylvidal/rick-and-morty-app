@@ -1,6 +1,5 @@
 package com.codesthetic.engine.core.episodes.data
 
-import android.util.Log
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.engine.core.episodes.domain.EpisodeGateway
 import com.codesthetic.engine.exception.NoSuchDataExistException
@@ -21,7 +20,6 @@ class EpisodeRepository
             val episodes = response.episodes.toMutableList()
             while (++currentPage <= response.info.pages) {
                 episodes += api.fetch(currentPage).episodes
-                Log.e("currentPage Episode", "$currentPage")
             }
             return episodes.map { it.toDomain() }.toList()
         }

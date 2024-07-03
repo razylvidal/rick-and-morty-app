@@ -3,7 +3,6 @@ package com.codesthetic.rickandmortyapp.ui.characterdetails
 import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.codesthetic.feature_characters.R
 import com.codesthetic.feature_characters.databinding.CharacterDetailsActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,12 +18,13 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.character_details_activity)
+        setContentView(binding.root)
 
         if (hasIntentExtras() && savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(
-                    CharacterDetailsFragment.newInstance(intent!!.extras!!.getInt(KEY_CHARACTER_ID)),
+                .replace(
+                    binding.flContainer.id,
+                    CharacterDetailsFragment.newInstance(intent.extras!!.getInt(KEY_CHARACTER_ID)),
                     CharacterDetailsFragment::class.java.name
                 )
                 .commit()

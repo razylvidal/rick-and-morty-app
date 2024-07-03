@@ -12,12 +12,12 @@ fun LocationResult.LocationRaw.toDomain() =
         name = name,
         type = type.orEmpty(),
         dimension = dimension.orEmpty(),
-        residents = emptyList(),
+        residents = getID(residents),
         url = url
     )
 
 private fun getID(residents: List<String>): List<Int> {
-    return if (residents.isNotEmpty()) {
+    return if (residents.isEmpty()) {
         residents.map { it.substringAfterLast('/').toInt() }
     } else {
         emptyList()

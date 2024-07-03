@@ -18,6 +18,7 @@ class CharacterDetailsPresenter
         private val getLocationByIDUseCase: GetLocationByIdUseCase,
         private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
     ) : CharacterDetailsContract.Presenter {
+        private var characterId : Int = 0
         private var view: CharacterDetailsContract.View? = null
         private val scope = MainScope()
 
@@ -26,14 +27,15 @@ class CharacterDetailsPresenter
             id: Int,
         ) {
             this.view = view
-            setup(id)
+            characterId = id
+            setup()
         }
 
-        private fun setup(id: Int) {
+        private fun setup() {
             view?.showLoading()
             scope.launch {
-                val character = getCharacterByIDUseCase.get(id)
-                val locationName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(id)).name
+                val character = getCharacterByIDUseCase.get(characterId)
+                val locationName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(characterId)).name
                 val episodes = getEpisodes(character.episode)
                 view?.showCharacterDetails(character, locationName, episodes)
                 view?.hideLoading()
