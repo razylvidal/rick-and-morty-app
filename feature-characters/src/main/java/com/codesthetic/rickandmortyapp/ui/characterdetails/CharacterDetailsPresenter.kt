@@ -1,5 +1,6 @@
 package com.codesthetic.rickandmortyapp.ui.characterdetails
 
+import android.util.Log
 import com.codesthetic.engine.core.characters.domain.usecases.GetCharacterByIDUseCase
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodeByIdUseCase
@@ -18,7 +19,7 @@ class CharacterDetailsPresenter
         private val getLocationByIDUseCase: GetLocationByIdUseCase,
         private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
     ) : CharacterDetailsContract.Presenter {
-        private var characterId : Int = 0
+        private var characterId: Int = 0
         private var view: CharacterDetailsContract.View? = null
         private val scope = MainScope()
 
@@ -35,9 +36,11 @@ class CharacterDetailsPresenter
             view?.showLoading()
             scope.launch {
                 val character = getCharacterByIDUseCase.get(characterId)
-                val locationName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(characterId)).name
+                val originName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(character.origin)).name
+                val locationName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(character.location)).name
+                Log.e(">>", "${character.location}")
                 val episodes = getEpisodes(character.episode)
-                view?.showCharacterDetails(character, locationName, episodes)
+                view?.showCharacterDetails(character, originName, locationName, episodes)
                 view?.hideLoading()
             }
         }

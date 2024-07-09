@@ -8,8 +8,10 @@ import com.codesthetic.engine.core.characters.data.CharacterDB
 import com.codesthetic.engine.core.characters.data.CharacterDao
 import com.codesthetic.engine.core.episodes.data.EpisodeDB
 import com.codesthetic.engine.core.episodes.data.EpisodeDao
+import com.codesthetic.engine.core.gender.data.GenderDao
 import com.codesthetic.engine.core.location.data.LocationDB
 import com.codesthetic.engine.core.location.data.LocationDao
+import com.codesthetic.engine.core.status.data.StatusDao
 
 /**
  * Created by razylvidal on January 20, 2024
@@ -30,6 +32,10 @@ abstract class RickAndMortyDatabase : RoomDatabase() {
     abstract fun episodeDao(): EpisodeDao
 
     abstract fun locationDao(): LocationDao
+
+    abstract fun genderDao(): GenderDao
+
+    abstract fun statusDao(): StatusDao
 
     companion object {
         private const val DB_NAME = "rickandmorty.db"

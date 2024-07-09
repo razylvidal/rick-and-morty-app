@@ -8,4 +8,8 @@
     <string name="gender">Gender</string>
     <string name="type">Type</string>
     <string name="search_a_character">Search a character</string>
+    <string name="filter_by">Filter By</string>
+    <string name="reset">Reset</string>
+    <string name="apply">Apply</string>
+    <string name="origin">Origin</string>
 </resources>

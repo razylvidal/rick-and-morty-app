@@ -10,6 +10,7 @@ interface CharacterDetailsContract {
     interface View {
         fun showCharacterDetails(
             character: Character,
+            originName: String,
             locationName: String,
             episodes: List<Episode>,
         )

@@ -25,11 +25,11 @@ class LocationRepository
         }
 
         override suspend fun get(): List<Location> {
-            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException("No locations found") }
         }
 
         override suspend fun get(id: Int): Location {
-            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException()
+            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException("No location found. $id")
         }
 
         override fun save(locations: Location) {

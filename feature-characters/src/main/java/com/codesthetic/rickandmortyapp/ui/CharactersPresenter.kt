@@ -1,9 +1,12 @@
 package com.codesthetic.rickandmortyapp.ui
 
 import android.util.Log
+import com.codesthetic.engine.core.characterdisplayconfig.domain.CharacterDisplayConfigHelper
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.characters.domain.usecases.FetchCharactersUseCase
 import com.codesthetic.engine.core.characters.domain.usecases.LoadCharactersUseCase
+import com.codesthetic.engine.core.gender.domain.GetGenderUseCase
+import com.codesthetic.engine.core.status.domain.GetStatusUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -17,12 +20,17 @@ class CharactersPresenter
     constructor(
         private val loadCharactersUseCase: LoadCharactersUseCase,
         private val fetchCharactersUseCase: FetchCharactersUseCase,
+        private val characterDisplayConfigHelper: CharacterDisplayConfigHelper,
+        private val getGenderUseCase: GetGenderUseCase,
+        private val getStatusUseCase: GetStatusUseCase,
     ) : CharactersContract.Presenter {
         private var view: CharactersContract.View? = null
         private val scope = MainScope()
         private var currentPage: Int = 0
         private var characters: List<Character> = emptyList()
         private var loadMoreJob: Job? = null
+        private var gender: List<String> = emptyList()
+        private var status: List<String> = emptyList()
 
         override fun onViewReady(view: CharactersContract.View) {
             this.view = view
@@ -32,6 +40,8 @@ class CharactersPresenter
         private fun setup() {
             scope.launch {
                 val characters = loadCharactersUseCase.load()
+                gender = getGenderUseCase.invoke().get()
+                status = getStatusUseCase.invoke().get()
                 view?.showCharacters(characters, false)
             }
         }
@@ -49,7 +59,7 @@ class CharactersPresenter
         }
 
         override fun onFilterButtonClicked() {
-            TODO("Not yet implemented")
+            view?.showFilter(gender, status)
         }
 
         override fun onApplyFilters() {

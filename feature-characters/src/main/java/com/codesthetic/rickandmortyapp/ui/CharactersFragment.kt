@@ -14,6 +14,7 @@ import com.codesthetic.flexi.BaseFlexiView
 import com.codesthetic.flexi.ProgressItem
 import com.codesthetic.flexi.SimpleEndlessScroll
 import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
+import com.codesthetic.rickandmortyapp.ui.filter.CharactersFilterDialogFragment
 import com.codesthetic.rickandmortyapp.ui.flexiitems.CharacterFlexiView
 import dagger.hilt.android.AndroidEntryPoint
 import eu.davidea.flexibleadapter.FlexibleAdapter
@@ -74,6 +75,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecycleView()
+        clickHandlers()
 
         presenter.onViewReady(this)
     }
@@ -83,6 +85,12 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         binding.rvCharacters.itemAnimator = DefaultItemAnimator()
         binding.rvCharacters.adapter = adapter
         binding.rvCharacters.setHasFixedSize(true)
+    }
+
+    private fun clickHandlers() {
+        binding.characterAppbar.btnFilter.setOnClickListener {
+            presenter.onFilterButtonClicked()
+        }
     }
 
     override fun onDestroy() {
@@ -98,8 +106,14 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         // TODO("Not yet implemented")
     }
 
-    override fun showFilter() {
-        // TODO("Not yet implemented")
+    override fun showFilter(
+        gender: List<String>,
+        status: List<String>,
+    ) {
+        CharactersFilterDialogFragment()
+            .setStatus(status)
+            .setGender(gender)
+            .show(childFragmentManager, "filter_bottom_sheet_dialog")
     }
 
     override fun hideFilter() {

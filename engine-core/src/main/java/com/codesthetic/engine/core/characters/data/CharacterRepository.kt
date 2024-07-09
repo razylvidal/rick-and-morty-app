@@ -19,11 +19,11 @@ class CharacterRepository
         }
 
         override fun get(): List<Character> {
-            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException("No characters found") }
         }
 
         override fun get(id: Int): Character {
-            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException()
+            return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException("No character found")
         }
 
         override suspend fun save(character: Character) {

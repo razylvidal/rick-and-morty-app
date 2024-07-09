@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterContainer"
+    android:layout_width="62dp"
+    android:layout_height="62dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/filter_unselected_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/ivFilterIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/outline_genderless_24" />
+
+    <TextView
+        android:id="@+id/tvFilterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/lato_regular"
+        android:textColor="@color/color_unselected"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        tools:text="Genderless" />
+
+</LinearLayout>

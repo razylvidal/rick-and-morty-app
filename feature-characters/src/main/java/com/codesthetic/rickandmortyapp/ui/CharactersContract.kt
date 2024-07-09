@@ -11,7 +11,10 @@ interface CharactersContract {
 
         fun hideLoading()
 
-        fun showFilter()
+        fun showFilter(
+            gender: List<String>,
+            status: List<String>,
+        )
 
         fun hideFilter()
 

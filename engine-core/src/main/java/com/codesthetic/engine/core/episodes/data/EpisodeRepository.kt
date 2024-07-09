@@ -25,11 +25,11 @@ class EpisodeRepository
         }
 
         override fun get(): List<Episode> {
-            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException() }
+            return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException("No episodes found") }
         }
 
         override fun get(id: Int): Episode {
-            return dao.get(id = id)?.toDomain() ?: throw NoSuchDataExistException()
+            return dao.get(id = id)?.toDomain() ?: throw NoSuchDataExistException("No episode found. $id")
         }
 
         override suspend fun save(episode: Episode) {

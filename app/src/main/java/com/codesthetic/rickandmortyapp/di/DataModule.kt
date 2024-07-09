@@ -9,10 +9,16 @@ import com.codesthetic.engine.core.episodes.data.EpisodeDao
 import com.codesthetic.engine.core.episodes.data.EpisodeRemoteService
 import com.codesthetic.engine.core.episodes.data.EpisodeRepository
 import com.codesthetic.engine.core.episodes.domain.EpisodeGateway
+import com.codesthetic.engine.core.gender.data.GenderDao
+import com.codesthetic.engine.core.gender.data.GenderRepository
+import com.codesthetic.engine.core.gender.domain.GenderGateway
 import com.codesthetic.engine.core.location.data.LocationDao
 import com.codesthetic.engine.core.location.data.LocationRemoteService
 import com.codesthetic.engine.core.location.data.LocationRepository
 import com.codesthetic.engine.core.location.domain.LocationGateway
+import com.codesthetic.engine.core.status.data.StatusDao
+import com.codesthetic.engine.core.status.data.StatusRepository
+import com.codesthetic.engine.core.status.domain.StatusGateway
 import com.codesthetic.rickandmortyapp.RickAndMortyDatabase
 import dagger.Binds
 import dagger.Module
@@ -38,6 +44,12 @@ abstract class DataModule {
     @Binds
     abstract fun bindLocationGateway(repo: LocationRepository): LocationGateway
 
+    @Binds
+    abstract fun bindGenderGateway(repo: GenderRepository): GenderGateway
+
+    @Binds
+    abstract fun bindStatusGateway(repo: StatusRepository): StatusGateway
+
     @Module
     @InstallIn(SingletonComponent::class)
     object Local {
@@ -62,6 +74,16 @@ abstract class DataModule {
         @Provides
         fun provideLocationDao(db: RickAndMortyDatabase): LocationDao {
             return db.locationDao()
+        }
+
+        @Provides
+        fun providesGenderDao(db: RickAndMortyDatabase): GenderDao {
+            return db.genderDao()
+        }
+
+        @Provides
+        fun providesStatusDao(db: RickAndMortyDatabase): StatusDao {
+            return db.statusDao()
         }
     }
 

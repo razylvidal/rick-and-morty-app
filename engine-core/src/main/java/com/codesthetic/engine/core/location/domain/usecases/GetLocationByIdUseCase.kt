@@ -2,6 +2,7 @@ package com.codesthetic.engine.core.location.domain.usecases
 
 import com.codesthetic.engine.core.location.domain.Location
 import com.codesthetic.engine.core.location.domain.LocationGateway
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import javax.inject.Inject
 
 /**
@@ -13,7 +14,11 @@ class GetLocationByIdUseCase
         private val gateway: LocationGateway,
     ) {
         suspend operator fun invoke(params: Params): Location {
-            return gateway.get(params.id)
+            return try {
+                gateway.get(params.id)
+            } catch (ex: NoSuchDataExistException) {
+                Location()
+            }
         }
 
         data class Params(val id: Int)

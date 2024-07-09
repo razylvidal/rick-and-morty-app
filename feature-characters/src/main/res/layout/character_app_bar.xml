@@ -60,6 +60,8 @@
             android:layout_gravity="end"
             android:background="@drawable/filter_button_background"
             android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/baseline_filter_list_24" />
 
 

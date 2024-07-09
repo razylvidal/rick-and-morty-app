@@ -68,6 +68,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
 
     override fun showCharacterDetails(
         character: Character,
+        originName: String,
         locationName: String,
         episodes: List<Episode>,
     ) {
@@ -77,10 +78,19 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
             tvName.text = character.name
             tvStatus.text = character.status
             tvSpecies.text = character.species
+            tvOrigin.text = originName
             tvLocation.text = locationName
             tvGender.text = character.gender
             tvType.text = character.type
         }
+        if (character.origin == 0)
+            {
+                binding.characterDetails.tvOrigin.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+        if (character.location == 0)
+            {
+                binding.characterDetails.tvLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
         if (episodes.isNotEmpty()) {
             adapter.updateDataSet(episodes.map { CharacterEpisodesFlexiView(it) })
         }
