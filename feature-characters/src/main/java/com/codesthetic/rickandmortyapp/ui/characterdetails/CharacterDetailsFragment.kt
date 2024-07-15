@@ -16,6 +16,7 @@ import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.feature_characters.R
 import com.codesthetic.feature_characters.databinding.CharacterDetailsFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
+import com.codesthetic.utilsandroid.capitalizeFirstChar
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import eu.davidea.flexibleadapter.FlexibleAdapter
@@ -76,21 +77,19 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
         binding.sivCharacterImage.loadImage(character.image)
         binding.characterDetails.apply {
             tvName.text = character.name
-            tvStatus.text = character.status
+            tvStatus.text = character.status.capitalizeFirstChar()
             tvSpecies.text = character.species
-            tvOrigin.text = originName
+            tvOrigin.text = originName.capitalizeFirstChar()
             tvLocation.text = locationName
-            tvGender.text = character.gender
+            tvGender.text = character.gender.capitalizeFirstChar()
             tvType.text = character.type
         }
-        if (character.origin == 0)
-            {
-                binding.characterDetails.tvOrigin.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
-        if (character.location == 0)
-            {
-                binding.characterDetails.tvLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
+        if (character.origin == 0) {
+            binding.characterDetails.tvOrigin.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        }
+        if (character.location == 0) {
+            binding.characterDetails.tvLocation.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        }
         if (episodes.isNotEmpty()) {
             adapter.updateDataSet(episodes.map { CharacterEpisodesFlexiView(it) })
         }

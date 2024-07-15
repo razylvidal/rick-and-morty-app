@@ -23,6 +23,9 @@ interface CharacterDao {
     @Query("SELECT COUNT(*) FROM characters")
     fun count(): Int
 
+    @Query("SELECT * FROM characters WHERE name LIKE :keyword")
+    fun search(keyword: String): List<CharacterDB>
+
     @Query("DELETE FROM characters")
     fun clear()
 }

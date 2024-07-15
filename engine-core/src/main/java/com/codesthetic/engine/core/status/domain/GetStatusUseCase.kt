@@ -10,7 +10,6 @@ class GetStatusUseCase
     constructor(
         private val gateway: StatusGateway,
     ) {
-
         operator fun invoke(): Status {
             val uniqueStatus =
                 gateway.getStatus().flatMap {

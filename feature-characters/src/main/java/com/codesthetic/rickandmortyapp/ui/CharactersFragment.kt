@@ -1,9 +1,13 @@
 package com.codesthetic.rickandmortyapp.ui
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -76,6 +80,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
 
         setupRecycleView()
         clickHandlers()
+        setupSearchView()
 
         presenter.onViewReady(this)
     }
@@ -91,6 +96,26 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         binding.characterAppbar.btnFilter.setOnClickListener {
             presenter.onFilterButtonClicked()
         }
+
+        binding.characterAppbar.clearSearchField.setOnClickListener {
+            binding.characterAppbar.searchField.setText("")
+        }
+    }
+
+    private fun setupSearchView() {
+        val searchField = binding.characterAppbar.searchField
+        searchField.setTextColor(Color.DKGRAY)
+        searchField.setHintTextColor(Color.GRAY)
+        binding.characterAppbar.clearSearchField.imageTintMode = PorterDuff.Mode.SRC_IN
+        searchField.doAfterTextChanged { text ->
+            Log.e("doAfterTextChanged", text.toString())
+            if (text.toString().isNotEmpty()) {
+                binding.characterAppbar.clearSearchField.visibility = View.VISIBLE
+            } else {
+                binding.characterAppbar.clearSearchField.visibility = View.GONE
+            }
+            presenter.onSearchValueChanged(text.toString())
+        }
     }
 
     override fun onDestroy() {
@@ -98,12 +123,14 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         presenter.onDestroy()
     }
 
-    override fun showLoading() {
-        // TODO("Not yet implemented")
-    }
-
-    override fun hideLoading() {
-        // TODO("Not yet implemented")
+    override fun renderLoading(isVisible: Boolean) {
+        if (isVisible) {
+            binding.rvCharacters.visibility = View.GONE
+            binding.loading.visibility = View.VISIBLE
+        } else {
+            binding.rvCharacters.visibility = View.VISIBLE
+            binding.loading.visibility = View.GONE
+        }
     }
 
     override fun showFilter(
@@ -113,21 +140,36 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         CharactersFilterDialogFragment()
             .setStatus(status)
             .setGender(gender)
+            .onApply { filter ->
+                presenter.onApplyFilters(filter)
+            }
+            .onReset {
+                presenter.onResetFilters()
+            }
             .show(childFragmentManager, "filter_bottom_sheet_dialog")
-    }
-
-    override fun hideFilter() {
-        // TODO("Not yet implemented")
     }
 
     override fun showCharacters(
         characters: List<Character>,
-        allItemsLoaded: Boolean,
+        noMoreToLoad: Boolean,
+        isFiltering: Boolean,
     ) {
+        if (isFiltering) {
+            adapter.updateDataSet(
+                characters.map { CharacterFlexiView(it) }
+            )
+            disableEndlessScrolling()
+            return
+        }
+
         val newSetOfCharacters = characters.map { CharacterFlexiView(it) }
         val currentDisplayedCharacters = getCurrentDisplayCharacters()
 
-        if (currentDisplayedCharacters.isEmpty()) {
+        if (currentDisplayedCharacters.size < newSetOfCharacters.size) {
+            adapter.clear()
+        }
+
+        if (adapter.isEmpty) {
             adapter.updateDataSet(newSetOfCharacters)
         } else {
             if (newSetOfCharacters != currentDisplayedCharacters) {
@@ -136,7 +178,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
             }
         }
 
-        if (allItemsLoaded) {
+        if (noMoreToLoad) {
             disableEndlessScrolling()
         } else {
             setUpEndlessScrolling()
@@ -168,8 +210,20 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         adapter.setEndlessProgressItem(null)
     }
 
-    override fun showEmptyState() {
-        // TODO("Not yet implemented")
+    override fun renderEmptyState(
+        message: String,
+        isVisible: Boolean,
+    ) {
+        if (isVisible) {
+            if (message.isNotEmpty()) {
+                binding.tvEmtyStateMessage.text = message
+            }
+            binding.rvCharacters.visibility = View.GONE
+            binding.llEmptyState.visibility = View.VISIBLE
+        } else {
+            binding.rvCharacters.visibility = View.VISIBLE
+            binding.llEmptyState.visibility = View.GONE
+        }
     }
 
     override fun navigateToCharacter(id: Int) {

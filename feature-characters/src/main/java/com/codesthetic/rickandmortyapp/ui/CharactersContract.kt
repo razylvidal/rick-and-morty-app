@@ -1,5 +1,6 @@
 package com.codesthetic.rickandmortyapp.ui
 
+import com.codesthetic.engine.core.characterdisplayconfig.domain.CharacterDisplayDataSource
 import com.codesthetic.engine.core.characters.domain.Character
 
 /**
@@ -7,23 +8,23 @@ import com.codesthetic.engine.core.characters.domain.Character
  */
 interface CharactersContract {
     interface View {
-        fun showLoading()
-
-        fun hideLoading()
+        fun renderLoading(isVisible: Boolean)
 
         fun showFilter(
             gender: List<String>,
             status: List<String>,
         )
 
-        fun hideFilter()
-
         fun showCharacters(
             characters: List<Character>,
-            allItemsLoaded: Boolean,
+            noMoreToLoad: Boolean,
+            isFiltering: Boolean = false,
         )
 
-        fun showEmptyState()
+        fun renderEmptyState(
+            message: String = "",
+            isVisible: Boolean = false,
+        )
 
         fun navigateToCharacter(id: Int)
     }
@@ -33,13 +34,13 @@ interface CharactersContract {
 
         fun onDestroy()
 
-        fun onUpdateCharacters(characters: List<Character>)
-
-        fun onSearchCharacter(query: String)
+        fun onSearchValueChanged(query: String)
 
         fun onFilterButtonClicked()
 
-        fun onApplyFilters()
+        fun onApplyFilters(filter: CharacterDisplayDataSource)
+
+        fun onResetFilters()
 
         fun onCharacterClicked(id: Int)
 

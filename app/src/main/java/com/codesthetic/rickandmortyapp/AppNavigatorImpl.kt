@@ -1,7 +1,6 @@
 package com.codesthetic.rickandmortyapp
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import com.codesthetic.engine.AppNavigator
 import com.codesthetic.rickandmortyapp.ui.characterdetails.CharacterDetailsActivity
@@ -12,9 +11,7 @@ import javax.inject.Inject
  */
 class AppNavigatorImpl
     @Inject
-    constructor(
-        private val context: Context,
-    ) : AppNavigator {
+    constructor() : AppNavigator {
         override fun navigateToMain(activity: Activity) {
             val intent = Intent(activity, MainActivity::class.java)
             activity.startActivity(intent)

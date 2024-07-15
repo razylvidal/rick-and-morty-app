@@ -23,8 +23,4 @@ class LoadLocationUseCase
                 fetchLocationUseCase.fetch()
             }
         }
-
-        companion object {
-            private const val DEFAULT_PAGE_SIZE = 20
-        }
     }

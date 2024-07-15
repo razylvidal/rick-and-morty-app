@@ -9,8 +9,31 @@ import com.codesthetic.engine.core.status.domain.Status
 data class CharacterDisplayDataSource(
     val gender: String = Gender.Option.ALL.value,
     val status: String = Status.ALL,
+    val sortBy: SortByName = SortByName.DEFAULT,
 ) {
     fun hasActiveFilters(): Boolean {
-        return gender != Gender.Option.ALL.value || status != Status.ALL
+        return gender != Gender.Option.ALL.value || status != Status.ALL || sortBy != SortByName.DEFAULT
+    }
+
+    fun isDefault(params: Params): Boolean {
+        return when (params) {
+            Params.Gender -> gender == Gender.Option.ALL.value
+            Params.SortBy -> sortBy == SortByName.DEFAULT
+            Params.Status -> status == Status.ALL
+        }
+    }
+
+    sealed class Params {
+        data object Gender : Params()
+
+        data object Status : Params()
+
+        data object SortBy : Params()
+    }
+
+    enum class SortByName {
+        DEFAULT,
+        ASCENDING,
+        DESCENDING,
     }
 }

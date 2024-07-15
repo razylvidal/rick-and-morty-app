@@ -9,7 +9,6 @@ import com.codesthetic.engine.core.location.domain.usecases.LoadLocationUseCase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 import javax.inject.Inject
 
 /**
@@ -26,8 +25,6 @@ class SplashPresenter
 
         private val scope = MainScope()
 
-        private val mutex = Mutex()
-
         override fun onViewReady(view: SplashContract.View) {
             this.view = view
             initializeData()
@@ -37,7 +34,6 @@ class SplashPresenter
             view?.showLoadingBar()
             view?.updateProgressIndicator(10)
             scope.launch {
-//                mutex.withLock {
                 try {
                     delay(1000L)
                     loadCharactersUseCase.load()
@@ -56,7 +52,6 @@ class SplashPresenter
                 }
             }
         }
-//        }
 
         override fun onDestroy() {
             this.view = null

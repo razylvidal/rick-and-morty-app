@@ -62,7 +62,7 @@
             android:padding="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/baseline_filter_list_24" />
+            android:src="@drawable/tune_24px" />
 
 
     </FrameLayout>

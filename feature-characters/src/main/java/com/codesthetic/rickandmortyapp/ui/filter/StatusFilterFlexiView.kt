@@ -46,7 +46,7 @@ class StatusFilterFlexiView(
                 holder.filterName.setTextColor(Color.WHITE)
                 holder.container.setBackgroundResource(R.drawable.filter_selected_background)
             } else {
-                holder.filterName.setTextColor(Color.LTGRAY)
+                holder.filterName.setTextColor(Color.DKGRAY)
                 holder.container.setBackgroundResource(R.drawable.filter_unselected_background)
             }
         }

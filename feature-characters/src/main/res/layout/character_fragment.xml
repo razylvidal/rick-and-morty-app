@@ -18,73 +18,82 @@
         android:id="@+id/linearlayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:paddingHorizontal="16dp"
-        app:layout_constraintBottom_toTopOf="@id/rvCharacters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/characterAppbar">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="9dp"
-            android:text="@string/characters"
-            android:textColor="@color/color_on_primary"
-            android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textSize="20sp" />
-
-        <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginHorizontal="16dp"
             android:layout_weight="1"
-            android:scrollbars="none">
+            android:text="@string/characters"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/color_on_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                app:itemSpacing="5dp"
-                app:singleLine="true"
-                app:singleSelection="false">
+        <ImageView
+            android:id="@+id/btnSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/baseline_grid_view_24" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="false"
-                    android:clickable="false"
-                    android:textColor="@color/color_primary_variant"
-                    app:chipBackgroundColor="@color/color_background"
-                    app:chipStrokeColor="@color/color_primary_variant"
-                    app:chipStrokeWidth="1dp"
-                    app:closeIcon="@drawable/baseline_close_24"
-                    app:closeIconEnabled="true"
-                    app:closeIconTint="@null"
-                    tools:text="Beverage" />
+        <!--        <HorizontalScrollView-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="end|center_vertical"-->
+        <!--            android:layout_marginHorizontal="16dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:scrollbars="none">-->
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="false"
-                    android:clickable="false"
-                    android:textColor="@color/color_primary_variant"
-                    app:chipBackgroundColor="@color/color_background"
-                    app:chipStrokeColor="@color/color_primary_variant"
-                    app:chipStrokeWidth="1dp"
-                    app:closeIcon="@drawable/baseline_close_24"
-                    app:closeIconEnabled="true"
-                    app:closeIconTint="@null"
-                    tools:text="Beverage" />
+        <!--            <com.google.android.material.chip.ChipGroup-->
+        <!--                android:id="@+id/chip_group"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="end"-->
+        <!--                app:itemSpacing="5dp"-->
+        <!--                app:singleLine="true"-->
+        <!--                app:singleSelection="false">-->
 
-            </com.google.android.material.chip.ChipGroup>
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chip1"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checkable="false"-->
+        <!--                    android:clickable="false"-->
+        <!--                    android:textColor="@color/color_primary_variant"-->
+        <!--                    app:chipBackgroundColor="@color/color_background"-->
+        <!--                    app:chipStrokeColor="@color/color_primary_variant"-->
+        <!--                    app:chipStrokeWidth="1dp"-->
+        <!--                    app:closeIcon="@drawable/baseline_close_24"-->
+        <!--                    app:closeIconEnabled="true"-->
+        <!--                    app:closeIconTint="@null"-->
+        <!--                    tools:text="Beverage" />-->
 
-        </HorizontalScrollView>
+        <!--                <com.google.android.material.chip.Chip-->
+        <!--                    android:id="@+id/chip2"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:checkable="false"-->
+        <!--                    android:clickable="false"-->
+        <!--                    android:textColor="@color/color_primary_variant"-->
+        <!--                    app:chipBackgroundColor="@color/color_background"-->
+        <!--                    app:chipStrokeColor="@color/color_primary_variant"-->
+        <!--                    app:chipStrokeWidth="1dp"-->
+        <!--                    app:closeIcon="@drawable/baseline_close_24"-->
+        <!--                    app:closeIconEnabled="true"-->
+        <!--                    app:closeIconTint="@null"-->
+        <!--                    tools:text="Beverage" />-->
+
+        <!--            </com.google.android.material.chip.ChipGroup>-->
+
+        <!--        </HorizontalScrollView>-->
 
     </LinearLayout>
 
@@ -93,13 +102,64 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearlayout"
         tools:itemCount="2"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/character_frame_layout"
-        android:paddingHorizontal="10dp"/>
+        tools:listitem="@layout/character_frame_layout" />
+
+    <LinearLayout
+        android:id="@+id/llEmptyState"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:text="@string/no_characters_found"
+            android:textColor="@color/color_on_primary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvEmtyStateMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="@string/no_matches_found_please_check_your_search_query_or_applied_filters"
+            android:textColor="@color/color_on_primary"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/characterAppbar"
+        app:lottie_autoPlay="true"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/rick_morty_loading" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

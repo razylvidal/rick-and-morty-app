@@ -60,4 +60,5 @@ dependencies {
     api(project(":shared:theme"))
     implementation(project(":shared:flexi"))
     implementation(project(":shared:utils-android"))
+    implementation(libs.lottie)
 }

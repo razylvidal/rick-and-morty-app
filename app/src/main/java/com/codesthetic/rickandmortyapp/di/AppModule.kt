@@ -1,12 +1,12 @@
+@file:Suppress("UtilityClassWithPublicConstructor")
+
 package com.codesthetic.rickandmortyapp.di
 
-import android.content.Context
 import com.codesthetic.engine.AppNavigator
 import com.codesthetic.rickandmortyapp.AppNavigatorImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -20,11 +20,8 @@ abstract class AppModule {
     companion object {
         @Provides
         @Singleton
-        fun provideNavigator(
-            @ApplicationContext
-            context: Context,
-        ): AppNavigator {
-            return AppNavigatorImpl(context)
+        fun provideNavigator(): AppNavigator {
+            return AppNavigatorImpl()
         }
     }
 }

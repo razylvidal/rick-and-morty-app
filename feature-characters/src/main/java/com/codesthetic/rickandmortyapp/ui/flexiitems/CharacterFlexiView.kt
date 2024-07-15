@@ -8,6 +8,7 @@ import coil.load
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.feature_characters.R
 import com.codesthetic.flexi.BaseFlexiView
+import com.codesthetic.utilsandroid.capitalizeFirstChar
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import eu.davidea.flexibleadapter.items.IFlexible
 
@@ -40,7 +41,7 @@ class CharacterFlexiView(
         if (holder is CharacterViewHolder) {
             holder.characterImage.loadImage(character.image)
             holder.characterName.text = character.name
-            holder.characterStatus.text = character.status
+            holder.characterStatus.text = character.status.capitalizeFirstChar()
         }
     }
 

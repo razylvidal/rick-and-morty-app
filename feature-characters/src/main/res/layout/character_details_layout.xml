@@ -154,6 +154,8 @@
         android:layout_toEndOf="@id/species"
         android:layout_below="@id/divider3"
         android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:clickable="true"
         android:focusable="true"
         app:drawableEndCompat="@drawable/baseline_keyboard_arrow_right_24" />

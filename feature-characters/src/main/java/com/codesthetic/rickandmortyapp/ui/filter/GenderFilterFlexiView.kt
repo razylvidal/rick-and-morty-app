@@ -1,6 +1,7 @@
 package com.codesthetic.rickandmortyapp.ui.filter
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -36,7 +37,7 @@ class GenderFilterFlexiView(
     }
 
     override fun bindViewHolder(
-        adapter: FlexibleAdapter<IFlexible<RecyclerView.ViewHolder>>?,
+        adapter: FlexibleAdapter<IFlexible<RecyclerView.ViewHolder>>,
         holder: BaseFlexiViewHolder?,
         position: Int,
         payloads: MutableList<Any>?,
@@ -44,11 +45,12 @@ class GenderFilterFlexiView(
         if (holder is GenderFilterViewHolder) {
             holder.filterName.text = genderOption.capitalizeFirstChar()
             holder.filterIcon.visibility = View.VISIBLE
+            holder.filterName.textSize = DEFAULT_FILTER_NAME_SIZE
 
             when (genderOption.capitalizeFirstChar()) {
                 Gender.Option.ALL.value -> {
                     holder.filterIcon.visibility = View.GONE
-                    holder.filterName.textSize = 15F
+                    holder.filterName.textSize = ADJUSTED_FILTER_NAME_SIZE
                 }
 
                 Gender.Option.FEMALE.value -> {
@@ -71,12 +73,14 @@ class GenderFilterFlexiView(
             }
 
             if (isSelected) {
-//                holder.filterIcon.drawable.setTint(Color.WHITE)
+                holder.filterIcon.setColorFilter(Color.WHITE)
+                holder.filterIcon.imageTintMode = PorterDuff.Mode.SRC_IN
                 holder.filterName.setTextColor(Color.WHITE)
                 holder.container.setBackgroundResource(R.drawable.filter_selected_background)
             } else {
-//                holder.filterIcon.drawable.setTint(Color.LTGRAY)
-                holder.filterName.setTextColor(Color.LTGRAY)
+                holder.filterIcon.setColorFilter(Color.GRAY)
+                holder.filterIcon.imageTintMode = PorterDuff.Mode.SRC_IN
+                holder.filterName.setTextColor(Color.GRAY)
                 holder.container.setBackgroundResource(R.drawable.filter_unselected_background)
             }
         }
@@ -93,5 +97,10 @@ class GenderFilterFlexiView(
         val filterName: TextView = view.findViewById(R.id.tvFilterName)
         val filterIcon: ImageView = view.findViewById(R.id.ivFilterIcon)
         val container: LinearLayout = view.findViewById(R.id.filterContainer)
+    }
+
+    companion object {
+        private const val DEFAULT_FILTER_NAME_SIZE = 10F
+        private const val ADJUSTED_FILTER_NAME_SIZE = 16F
     }
 }

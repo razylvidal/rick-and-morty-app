@@ -10,5 +10,7 @@ interface CharacterGateway {
 
     fun get(id: Int): Character
 
-    suspend fun save(character: Character)
+    fun save(character: Character)
+
+    suspend fun search(query: String): List<Character>
 }
