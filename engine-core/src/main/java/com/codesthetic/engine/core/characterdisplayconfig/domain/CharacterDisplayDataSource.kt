@@ -12,7 +12,7 @@ data class CharacterDisplayDataSource(
     val sortBy: SortByName = SortByName.DEFAULT,
 ) {
     fun hasActiveFilters(): Boolean {
-        return gender != Gender.Option.ALL.value || status != Status.ALL || sortBy != SortByName.DEFAULT
+        return gender != Gender.Option.ALL.value || status != Status.ALL
     }
 
     fun isDefault(params: Params): Boolean {
@@ -35,5 +35,10 @@ data class CharacterDisplayDataSource(
         DEFAULT,
         ASCENDING,
         DESCENDING,
+        ;
+
+        fun identify(value: String): SortByName? {
+            return entries.firstOrNull { value.contentEquals(it.name) }
+        }
     }
 }

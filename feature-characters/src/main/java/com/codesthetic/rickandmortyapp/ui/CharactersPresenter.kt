@@ -64,7 +64,7 @@ class CharactersPresenter
             scope.launch {
                 characters = loadCharactersUseCase.load()
                 loadFilters()
-                view?.showCharacters(characters, false)
+                view?.showCharacters(characters, noMoreToLoad = false, isRestoringDefaults = false)
                 view?.renderEmptyState(isVisible = false)
                 view?.renderLoading(false)
             }
@@ -92,7 +92,7 @@ class CharactersPresenter
                                 searchCharacterUseCase.invoke(
                                     SearchCharacterUseCase.Param(query)
                                 ).searchResult
-                            configureCharacterDisplay(searchResult, true)
+                            filterCharacters(searchResult)
                         } catch (ex: NoSuchDataExistException) {
                             searchResult = emptyList()
                             view?.renderEmptyState(ex.message, true)
@@ -102,19 +102,17 @@ class CharactersPresenter
             } else {
                 searchResult = emptyList()
                 searchQuery = ""
-                configureCharacterDisplay(characters, false)
+                filterCharacters(characters)
             }
         }
 
-        private fun configureCharacterDisplay(
-            characters: List<Character>,
-            isFiltering: Boolean,
-        ) {
+        private fun filterCharacters(characters: List<Character>) {
             val displayConfig = characterDisplayConfigHelper.getDisplayConfig()
 
             if (!displayConfig.hasActiveFilters() && searchQuery.isEmpty()) {
+                val sortedCharacters = sortCharacters(characters, displayConfig.sortBy)
                 view?.renderEmptyState()
-                view?.showCharacters(characters, allItemsLoaded, false)
+                view?.showCharacters(sortedCharacters, allItemsLoaded, isRestoringDefaults = true)
                 return
             }
 
@@ -133,19 +131,23 @@ class CharactersPresenter
                     emptyList()
                 }
 
-            val charactersToDisplay =
-                if (filterByStatus.isNotEmpty()) {
-                    when (displayConfig.sortBy) {
-                        SortByName.DEFAULT -> filterByStatus
-                        SortByName.ASCENDING -> filterByStatus.sortedBy { it.name }
-                        SortByName.DESCENDING -> filterByStatus.sortedByDescending { it.name }
-                    }
-                } else {
-                    filterByStatus
-                }
+            val sortedCharacters = sortCharacters(filterByStatus, displayConfig.sortBy)
             view?.renderLoading(false)
-            view?.renderEmptyState(isVisible = charactersToDisplay.isEmpty())
-            view?.showCharacters(charactersToDisplay, allItemsLoaded, isFiltering)
+            view?.renderEmptyState(isVisible = sortedCharacters.isEmpty())
+            view?.showFilteredCharacters(sortedCharacters)
+        }
+
+        private fun sortCharacters(
+            characters: List<Character>,
+            sortBy: SortByName,
+        ): List<Character> {
+            if (characters.isEmpty()) return characters
+
+            return when (sortBy) {
+                SortByName.DEFAULT -> characters
+                SortByName.ASCENDING -> characters.sortedBy { it.name }
+                SortByName.DESCENDING -> characters.sortedByDescending { it.name }
+            }
         }
 
         override fun onFilterButtonClicked() {
@@ -154,15 +156,14 @@ class CharactersPresenter
 
         override fun onApplyFilters(filter: CharacterDisplayDataSource) {
             characterDisplayConfigHelper.save(filter)
-            configureCharacterDisplay(
-                characters.takeIf { searchQuery.isBlank() } ?: searchResult,
-                true
+            filterCharacters(
+                characters.takeIf { searchQuery.isBlank() } ?: searchResult
             )
         }
 
         override fun onResetFilters() {
             characterDisplayConfigHelper.save(CharacterDisplayDataSource())
-            configureCharacterDisplay(characters, false)
+            filterCharacters(characters)
         }
 
         override fun onCharacterClicked(id: Int) {
@@ -174,18 +175,47 @@ class CharactersPresenter
             loadMoreJob =
                 scope.launch {
                     try {
+                        Log.e(">>", "Loading more page $currentItemSize")
                         currentPage = currentItemSize / PAGE_SIZE_LIMIT
                         val newSetOfCharacters = fetchCharactersUseCase.fetch(currentPage.inc())
                         characters += newSetOfCharacters
                         allItemsLoaded = newSetOfCharacters.size < PAGE_SIZE_LIMIT
                         loadFilters()
-                        view?.showCharacters(characters, allItemsLoaded)
-                        Log.e("onLoadMore", "character size ${characters.size}")
-                        Log.e("onLoadMore", "allItemsLoaded $allItemsLoaded")
+                        view?.showCharacters(characters, allItemsLoaded, isRestoringDefaults = false)
                     } catch (ex: Exception) {
                         Log.e("onLoadMore failed", "${ex.cause} == ${ex.message}")
                     }
                 }
+        }
+
+        override fun onSortButtonClicked() {
+            val curConfig = characterDisplayConfigHelper.getDisplayConfig()
+
+            val newConfig =
+                when (curConfig.sortBy) {
+                    SortByName.DEFAULT -> {
+                        SortByName.ASCENDING
+                    }
+
+                    SortByName.ASCENDING -> {
+                        SortByName.DESCENDING
+                    }
+
+                    SortByName.DESCENDING -> {
+                        SortByName.DEFAULT
+                    }
+                }
+
+            characterDisplayConfigHelper.save(curConfig.copy(sortBy = newConfig))
+            if (searchQuery.isEmpty()) {
+                Log.e(">>", "sort without query")
+                filterCharacters(characters)
+            } else {
+                Log.e(">>", "sort with query")
+                filterCharacters(searchResult)
+            }
+
+            view?.updateSortByNameButton(newConfig)
         }
 
         companion object {

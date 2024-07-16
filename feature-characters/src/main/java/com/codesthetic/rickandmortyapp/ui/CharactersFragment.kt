@@ -1,5 +1,6 @@
 package com.codesthetic.rickandmortyapp.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -12,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.codesthetic.engine.AppNavigator
+import com.codesthetic.engine.core.characterdisplayconfig.domain.CharacterDisplayDataSource.SortByName
 import com.codesthetic.engine.core.characters.domain.Character
+import com.codesthetic.feature_characters.R
 import com.codesthetic.feature_characters.databinding.CharacterFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
 import com.codesthetic.flexi.ProgressItem
@@ -100,6 +103,10 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         binding.characterAppbar.clearSearchField.setOnClickListener {
             binding.characterAppbar.searchField.setText("")
         }
+
+        binding.btnSort.setOnClickListener {
+            presenter.onSortButtonClicked()
+        }
     }
 
     private fun setupSearchView() {
@@ -149,30 +156,21 @@ class CharactersFragment : Fragment(), CharactersContract.View {
             .show(childFragmentManager, "filter_bottom_sheet_dialog")
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun showCharacters(
         characters: List<Character>,
         noMoreToLoad: Boolean,
-        isFiltering: Boolean,
+        isRestoringDefaults: Boolean,
     ) {
-        if (isFiltering) {
-            adapter.updateDataSet(
-                characters.map { CharacterFlexiView(it) }
-            )
-            disableEndlessScrolling()
-            return
-        }
-
         val newSetOfCharacters = characters.map { CharacterFlexiView(it) }
         val currentDisplayedCharacters = getCurrentDisplayCharacters()
 
-        if (currentDisplayedCharacters.size < newSetOfCharacters.size) {
-            adapter.clear()
-        }
-
-        if (adapter.isEmpty) {
-            adapter.updateDataSet(newSetOfCharacters)
-        } else {
-            if (newSetOfCharacters != currentDisplayedCharacters) {
+        if (newSetOfCharacters != currentDisplayedCharacters) {
+            if (isRestoringDefaults) {
+                adapter.clear()
+                adapter.notifyDataSetChanged()
+                adapter.updateDataSet(newSetOfCharacters)
+            } else {
                 val diff = newSetOfCharacters - currentDisplayedCharacters.toSet()
                 adapter.onLoadMoreComplete(diff)
             }
@@ -185,8 +183,15 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         }
     }
 
+    override fun showFilteredCharacters(characters: List<Character>) {
+        adapter.updateDataSet(
+            characters.map { CharacterFlexiView(it) }
+        )
+        disableEndlessScrolling()
+    }
+
     private fun getCurrentDisplayCharacters(): List<CharacterFlexiView> {
-        return adapter.currentItems.filterIsInstance(CharacterFlexiView::class.java)
+        return adapter.currentItems.filterIsInstance<CharacterFlexiView>()
     }
 
     private fun setUpEndlessScrolling() {
@@ -228,5 +233,21 @@ class CharactersFragment : Fragment(), CharactersContract.View {
 
     override fun navigateToCharacter(id: Int) {
         navigator.navigateToCharacterDetails(requireActivity(), id)
+    }
+
+    override fun updateSortByNameButton(selected: SortByName) {
+        when (selected) {
+            SortByName.DEFAULT -> {
+                binding.btnSort.setImageResource(R.drawable.baseline_sort_by_alpha_24)
+            }
+
+            SortByName.ASCENDING -> {
+                binding.btnSort.setImageResource(R.drawable.baseline_arrow_downward_24)
+            }
+
+            SortByName.DESCENDING -> {
+                binding.btnSort.setImageResource(R.drawable.baseline_arrow_upward_24)
+            }
+        }
     }
 }

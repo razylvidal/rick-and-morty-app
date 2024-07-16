@@ -18,8 +18,10 @@ interface CharactersContract {
         fun showCharacters(
             characters: List<Character>,
             noMoreToLoad: Boolean,
-            isFiltering: Boolean = false,
+            isRestoringDefaults: Boolean,
         )
+
+        fun showFilteredCharacters(characters: List<Character>)
 
         fun renderEmptyState(
             message: String = "",
@@ -27,6 +29,8 @@ interface CharactersContract {
         )
 
         fun navigateToCharacter(id: Int)
+
+        fun updateSortByNameButton(selected: CharacterDisplayDataSource.SortByName)
     }
 
     interface Presenter {
@@ -45,5 +49,7 @@ interface CharactersContract {
         fun onCharacterClicked(id: Int)
 
         fun onLoadMore(currentItemSize: Int)
+
+        fun onSortButtonClicked()
     }
 }
