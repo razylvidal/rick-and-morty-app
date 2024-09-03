@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -115,7 +114,6 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         searchField.setHintTextColor(Color.GRAY)
         binding.characterAppbar.clearSearchField.imageTintMode = PorterDuff.Mode.SRC_IN
         searchField.doAfterTextChanged { text ->
-            Log.e("doAfterTextChanged", text.toString())
             if (text.toString().isNotEmpty()) {
                 binding.characterAppbar.clearSearchField.visibility = View.VISIBLE
             } else {
@@ -147,12 +145,8 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         CharactersFilterDialogFragment()
             .setStatus(status)
             .setGender(gender)
-            .onApply { filter ->
-                presenter.onApplyFilters(filter)
-            }
-            .onReset {
-                presenter.onResetFilters()
-            }
+            .onApply { filter -> presenter.onApplyFilters(filter) }
+            .onReset { presenter.onResetFilters() }
             .show(childFragmentManager, "filter_bottom_sheet_dialog")
     }
 
