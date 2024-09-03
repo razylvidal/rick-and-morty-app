@@ -3,6 +3,8 @@
 package com.codesthetic.rickandmortyapp.ui
 
 import android.util.Log
+import com.codesthetic.engine.core.analytics.NuecaLytics
+import com.codesthetic.engine.core.analytics.TrackableEvent
 import com.codesthetic.engine.core.characters.domain.usecases.LoadCharactersUseCase
 import com.codesthetic.engine.core.episodes.domain.usecases.LoadEpisodeUseCase
 import com.codesthetic.engine.core.location.domain.usecases.LoadLocationUseCase
@@ -20,6 +22,7 @@ class SplashPresenter
         private val loadCharactersUseCase: LoadCharactersUseCase,
         private val loadEpisodeUseCase: LoadEpisodeUseCase,
         private val loadLocationUseCase: LoadLocationUseCase,
+        private val nuecaLytics: NuecaLytics,
     ) : SplashContract.Presenter {
         private var view: SplashContract.View? = null
 
@@ -45,12 +48,32 @@ class SplashPresenter
                     loadLocationUseCase.get()
                     Log.e(">>", "loadLocationUseCase done")
                     view?.updateProgressIndicator(100)
+                    logInitializationSucceedEvent()
                     view?.navigateToMainActivity()
                 } catch (exception: Exception) {
+                    logInitializationFailedEvent(exception)
                     view?.showToast("${exception.message}")
                     Log.e("error", "${exception.message}, ${exception.cause}")
                 }
             }
+        }
+
+        private fun logInitializationSucceedEvent() {
+            val event =
+                TrackableEvent.Builder("INITIALIZATION_SUCCEED")
+                    .add("screen", SplashActivity::class.java.name)
+                    .build()
+            nuecaLytics.track(event)
+        }
+
+        private fun logInitializationFailedEvent(exception: Exception) {
+            val event =
+                TrackableEvent.Builder("INITIALIZATION_FAILED")
+                    .add("cause", exception.cause.toString())
+                    .add("message", exception.message ?: exception.localizedMessage)
+                    .add("screen", SplashActivity::class.java.name)
+                    .build()
+            nuecaLytics.track(event)
         }
 
         override fun onDestroy() {
