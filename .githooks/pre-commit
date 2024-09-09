@@ -1,41 +1,20 @@
 #!/bin/sh
-
-# shellcheck disable=SC2034
+error="🔴"
 passed="🟢"
-
-echo "Running ktlintCheck...."
-
-CHANGED_FILES="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $2 ~ /\.kts|\.kt/ { print $2}')"
-
-if [ -z "$CHANGED_FILES" ]; then
-    echo "No Kotlin staged files."
-    exit 0
-fi;
-
-./gradlew --quiet ktlintCheck -PinternalKtlintGitFilter="$CHANGED_FILES"
-EXIT_CODE=$?
-if [ $EXIT_CODE -ne 0 ]; then
-  echo $OUTPUT
-  echo "*************************************************"
-  echo "*                 Ktlint failed                 *"
-  echo "* Please fix the above issues before committing *"
-  echo "*************************************************"
-  exit $EXIT_CODE
+z40=0000000000000000000000000000000000000000
+echo "Executing ktlintCheck..."
+./gradlew ktlintCheck
+if [ $? == 1 ]; then
+  echo "$error ktlint failed. Run ktlintFormat then try again."
+  exit 1
 else
-  echo "$passed Ktlint passed!"
+  echo "$passed ktlint passed!"
 fi
-
-# shellcheck disable=SC2028
-echo "Running detekt..."
+echo "Executing detekt..."
 ./gradlew detekt
-EXIT_CODE=$?
-if [ $EXIT_CODE -ne 0 ]; then
-  echo $OUTPUT
-  echo "***********************************************"
-  echo "                 Detekt failed                 "
-  echo " Please fix the above issues before committing "
-  echo "***********************************************"
-  exit $EXIT_CODE
+if [ $? == 1 ]; then
+  echo "$error detekt failed. Run detekt then try again."
+  exit 1
 else
   echo "$passed detekt passed!"
 fi

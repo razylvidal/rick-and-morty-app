@@ -1,22 +1,20 @@
 [versions]
-androidGradlePlugin = "8.2.2"
-agp = "8.1.1"
-org-jetbrains-kotlin-android = "1.9.0"
-core-ktx = "1.9.0"
+androidGradlePlugin = "8.6.0"
+kotlin = "2.0.20"
+androidCoreKtx = "1.13.1"
+androidxAppcompat = "1.7.0"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-androidx-test-ext-junit-ktx = "1.1.3"
+androidx-test-ext-junit = "1.2.1"
+androidx-test-ext-junit-ktx = "1.2.1"
 espresso-core = "3.6.1"
-appcompat = "1.6.1"
-material = "1.8.0"
+material = "1.12.0"
 detekt = "1.23.6"
 ktlint = "12.1.0"
-hilt = "2.51.1"
-gson = "2.10.1"
+daggerHiltPlugin = "2.51.1"
+gson = "2.11.0"
 retrofit = "2.11.0"
-room = "2.6.1"
-navigationFragment = "2.7.7"
-navigationUi = "2.7.7"
+navigationFragment = "2.8.0"
+navigationUi = "2.8.0"
 flexiAdapter = "5.1.0"
 flexiAdapterUi = "1.0.0"
 constraintlayout = "2.1.4"
@@ -25,26 +23,39 @@ coil = "2.6.0"
 paging = "3.3.0"
 chucker = "4.0.0"
 lottie = "6.2.0"
-testRunner = "1.6.1"
+testRunner = "1.6.2"
 testRules = "1.6.1"
+kspPlugin = "2.0.20-1.0.24"
 
 firebaseBom = "33.2.0"
 googleServices = "4.4.2"
 firebaseCrashlyticsPlugin = "3.0.2"
 
+daggerHilt = "2.51.1"
+hiltAndroidTesting = "2.49"
+hiltCompiler = "2.51.1"
+
+roomPlugin = "2.6.1"
+roomRuntime = "2.6.1"
+roomCompiler = "2.6.1"
+roomKtx = "2.6.1"
+
 
 [libraries]
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidCoreKtx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
-# Hilt
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+# Dagger Hilt
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
+dagger-hilt-androidcompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHilt" }
+dagger-hilt-androidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroidTesting" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 
 # Retrofit
 gson-converter = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
@@ -52,9 +63,9 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
 # Room
-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 
 # Navigation Fragment
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragment" }
@@ -92,15 +103,17 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 #firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 
 [plugins]
-com-android-application = { id = "com.android.application", version.ref = "agp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
-com-android-library = { id = "com.android.library", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin"}
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltPlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices"}
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspPlugin"}
+room = { id = "androidx.room", version.ref = "roomPlugin"}
 
 [bundles]
-room-database = ["room-ktx", "room-runtime"]
+
 

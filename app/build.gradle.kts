@@ -1,13 +1,16 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.services)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
+//    kotlin("kapt")
+    kotlin("plugin.parcelize")
 }
 
 android {
@@ -17,7 +20,7 @@ android {
     defaultConfig {
         applicationId = "com.codesthetic.rickandmortyapp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,25 +35,48 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            configure<CrashlyticsExtension> {
+                mappingFileUploadEnabled = false // to disable mapping file uploads (default=true if minifying)
+            }
+        }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    kotlin {
+        jvmToolchain(17)
     }
 
     buildFeatures {
         viewBinding = true
         buildConfig = true
     }
+
+    lint {
+        checkReleaseBuilds = false
+        checkDependencies = true
+        abortOnError = true
+        warningsAsErrors = false
+        ignoreWarnings = false
+        baseline = file("lint-baseline.xml")
+    }
+
+    packagingOptions.resources {
+        excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    }
 }
 
 dependencies {
 
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -65,13 +91,21 @@ dependencies {
     implementation(project(":feature-locations"))
     implementation(project(":feature-appsetting"))
 
-    // Hilt
-    api(libs.hilt)
-    kapt(libs.hilt.compiler)
+    // Dagger Hilt
+    implementation(libs.dagger.hilt.android)
+    ksp(libs.dagger.hilt.androidcompiler)
+
+//    // For instrumentation tests
+//    androidTestImplementation(libs.dagger.hilt.androidtesting)
+//    kaptAndroidTest(libs.dagger.hilt.compiler)
+//
+//    // For local unit tests
+//    testImplementation(libs.dagger.hilt.androidtesting)
+//    kaptTest(libs.dagger.hilt.compiler)
 
     // Room
-    implementation(libs.bundles.room.database)
-    kapt(libs.room.compiler)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
 
     // Navigation Fragments
     implementation(libs.navigation.fragment.ktx)

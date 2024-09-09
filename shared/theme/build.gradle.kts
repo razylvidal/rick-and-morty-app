@@ -1,12 +1,13 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.android.library)
+    kotlin("android")
 }
 
 dependencies {
-    implementation(libs.core.ktx)
-    implementation(libs.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -15,8 +16,4 @@ dependencies {
 
 android {
     namespace = "com.codesthetic.shared.theme"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
-    }
 }
