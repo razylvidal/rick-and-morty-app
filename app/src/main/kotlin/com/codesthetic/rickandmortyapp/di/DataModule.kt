@@ -1,6 +1,7 @@
 package com.codesthetic.rickandmortyapp.di
 
 import android.content.Context
+import com.codesthetic.engine.core.RickAndMortyDatabase
 import com.codesthetic.engine.core.characters.data.CharacterDao
 import com.codesthetic.engine.core.characters.data.CharacterRemoteService
 import com.codesthetic.engine.core.characters.data.CharacterRepository
@@ -19,7 +20,6 @@ import com.codesthetic.engine.core.location.domain.LocationGateway
 import com.codesthetic.engine.core.status.data.StatusDao
 import com.codesthetic.engine.core.status.data.StatusRepository
 import com.codesthetic.engine.core.status.domain.StatusGateway
-import com.codesthetic.rickandmortyapp.RickAndMortyDatabase
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

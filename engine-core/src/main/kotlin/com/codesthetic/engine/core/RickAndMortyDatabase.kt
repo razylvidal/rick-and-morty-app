@@ -1,4 +1,4 @@
-package com.codesthetic.rickandmortyapp
+package com.codesthetic.engine.core
 
 import android.content.Context
 import androidx.room.Database

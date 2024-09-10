@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -17,17 +18,22 @@ android {
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments +=
-                    mapOf(
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments +=
+//                    mapOf(
 //                        "room.schemaLocation" to "$projectDir/schemas",
-                        "room.incremental" to "true",
-                        "room.expandProjection" to "true"
-                    )
-            }
-        }
+//                        "room.incremental" to "true",
+//                        "room.expandProjection" to "true"
+//                    )
+//            }
+//        }
     }
+}
+
+ksp {
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }
 
 dependencies {
