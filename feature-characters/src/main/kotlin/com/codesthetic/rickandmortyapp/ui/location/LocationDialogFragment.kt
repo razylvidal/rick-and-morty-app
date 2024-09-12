@@ -116,10 +116,6 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
         binding.rvResidents.setHasFixedSize(true)
     }
 
-    override fun renderLoading(isVisible: Boolean) {
-//        TODO("Not yet implemented")
-    }
-
     @SuppressLint("SetTextI18n")
     override fun showLocationDetails(location: Location) {
         binding.tvLocationName.text = location.name
@@ -129,8 +125,14 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
 
     @SuppressLint("NotifyDataSetChanged")
     override fun showResidents(residents: List<Character>) {
+        if (residents.isEmpty()) {
+            binding.tvEmptyResidentMessage.visibility = View.VISIBLE
+            return
+        }
+
         adapter.clear()
         adapter.updateDataSet(residents.map { CharacterFlexiView(it) })
+        binding.tvEmptyResidentMessage.visibility = View.GONE
     }
 
     fun onCharacterClicked(callback: ((Int) -> Unit?)?): LocationDialogFragment {

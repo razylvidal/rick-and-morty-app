@@ -8,6 +8,7 @@ import com.codesthetic.engine.core.episodes.domain.Episode
 fun EpisodeResult.EpisodeRaw.toDomain() =
     Episode(
         id = id,
+        season = episode.replace("S", "").substringBefore("E").toInt(),
         name = name,
         airDate = airDate,
         episode = episode,
@@ -22,6 +23,7 @@ private fun String.getID(): Int {
 fun Episode.toDB() =
     EpisodeDB(
         id = id,
+        season = season,
         name = name,
         airDate = airDate,
         episode = episode,
@@ -32,6 +34,7 @@ fun Episode.toDB() =
 fun EpisodeDB.toDomain() =
     Episode(
         id = id,
+        season = season,
         name = name,
         airDate = airDate,
         characters = characters.split(",").map { it.toInt() },

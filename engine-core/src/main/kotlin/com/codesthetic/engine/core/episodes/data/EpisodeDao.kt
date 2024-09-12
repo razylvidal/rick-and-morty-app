@@ -19,6 +19,9 @@ interface EpisodeDao {
     @Query("SELECT * FROM episodes")
     fun get(): List<EpisodeDB>
 
+    @Query("SELECT * FROM episodes WHERE season = :season")
+    fun getBySeason(season: Int): List<EpisodeDB>
+
     @Query("SELECT COUNT(*) FROM episodes")
     fun count(): Int
 

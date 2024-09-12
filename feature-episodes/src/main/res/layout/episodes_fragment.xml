@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/episodesFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/episodesFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/color_background"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="0dp"
+    <Toolbar
+        android:id="@+id/tbEpisode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentInsetStart="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:text="@string/episodes"
+            android:textColor="@color/color_on_primary"
+            android:textSize="26sp" />
+    </Toolbar>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSeason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="11dp"
+        android:clickable="true"
+        android:textSize="20sp"
+        android:fontFamily="@font/lato_bold"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_primary_variant"
+        app:drawableEndCompat="@drawable/baseline_arrow_drop_down_24"
+        tools:text="Season 1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEpisode"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="episodes"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="10"
+        tools:listitem="@layout/episode_frame_layout" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

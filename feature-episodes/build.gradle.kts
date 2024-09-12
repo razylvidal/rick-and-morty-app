@@ -23,4 +23,6 @@ dependencies {
     // Dagger Hilt
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.androidcompiler)
+
+    api(project(":shared:features"))
 }

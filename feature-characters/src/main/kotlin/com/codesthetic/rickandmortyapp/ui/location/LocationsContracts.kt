@@ -8,8 +8,6 @@ import com.codesthetic.engine.core.location.domain.Location
  */
 interface LocationsContracts {
     interface View {
-        fun renderLoading(isVisible: Boolean)
-
         fun showLocationDetails(location: Location)
 
         fun showResidents(residents: List<Character>)

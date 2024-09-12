@@ -32,7 +32,11 @@ class EpisodeRepository
             return dao.get(id = id)?.toDomain() ?: throw NoSuchDataExistException("No episode found. $id")
         }
 
-        override suspend fun save(episode: Episode) {
+        override fun getBySeason(season: Int): List<Episode> {
+            return dao.getBySeason(season = season).map { it.toDomain() }
+        }
+
+        override fun save(episode: Episode) {
             dao.save(episode.toDB())
         }
 

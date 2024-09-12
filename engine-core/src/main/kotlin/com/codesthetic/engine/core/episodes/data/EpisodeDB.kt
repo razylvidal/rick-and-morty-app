@@ -15,6 +15,8 @@ class EpisodeDB(
     val id: Int,
     @ColumnInfo(name = "name")
     val name: String,
+    @ColumnInfo(name = "season")
+    val season: Int,
     @ColumnInfo(name = "air_date")
     val airDate: String,
     @ColumnInfo(name = "episode")

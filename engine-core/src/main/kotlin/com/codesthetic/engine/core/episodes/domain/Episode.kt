@@ -5,6 +5,7 @@ package com.codesthetic.engine.core.episodes.domain
  */
 data class Episode(
     val id: Int,
+    val season: Int,
     val name: String,
     val airDate: String,
     val episode: String,

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.appDistribution)
     alias(libs.plugins.google.services)
     alias(libs.plugins.ksp)
 //    kotlin("kapt")

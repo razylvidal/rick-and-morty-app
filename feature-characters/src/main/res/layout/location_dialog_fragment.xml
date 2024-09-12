@@ -99,4 +99,18 @@
         app:layout_constraintTop_toBottomOf="@id/tvResidents"
         tools:itemCount="3"
         tools:listitem="@layout/character_frame_layout" />
+
+    <TextView
+        android:id="@+id/tvEmptyResidentMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_thin"
+        android:gravity="center"
+        android:text="@string/nothing_to_show"
+        android:textColor="@color/color_on_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvResidents" />
 </androidx.constraintlayout.widget.ConstraintLayout>

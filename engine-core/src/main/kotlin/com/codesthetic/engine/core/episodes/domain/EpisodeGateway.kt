@@ -10,5 +10,7 @@ interface EpisodeGateway {
 
     fun get(id: Int): Episode
 
-    suspend fun save(episode: Episode)
+    fun getBySeason(season: Int): List<Episode>
+
+    fun save(episode: Episode)
 }
