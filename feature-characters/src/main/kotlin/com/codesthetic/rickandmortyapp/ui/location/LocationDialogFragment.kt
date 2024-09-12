@@ -2,7 +2,6 @@ package com.codesthetic.rickandmortyapp.ui.location
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.codesthetic.flexi.BaseFlexiView
 import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
 import com.codesthetic.rickandmortyapp.ui.flexiitem.CharacterFlexiView
 import com.codesthetic.utilsandroid.LockedBottomSheetBehavior
+import com.codesthetic.utilsandroid.capitalizeFirstChar
 import com.google.android.material.R.id.design_bottom_sheet
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -66,7 +66,7 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = LocationDialogFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -116,6 +116,23 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
         binding.rvResidents.setHasFixedSize(true)
     }
 
+    override fun renderLoading(isVisible: Boolean) {
+//        TODO("Not yet implemented")
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun showLocationDetails(location: Location) {
+        binding.tvLocationName.text = location.name
+        binding.tvLocationType.text = "${location.type} -"
+        binding.tvLocationDimension.text = location.dimension.capitalizeFirstChar()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun showResidents(residents: List<Character>) {
+        adapter.clear()
+        adapter.updateDataSet(residents.map { CharacterFlexiView(it) })
+    }
+
     fun onCharacterClicked(callback: ((Int) -> Unit?)?): LocationDialogFragment {
         listener = callback
         return this
@@ -134,23 +151,5 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
                     )
             }
         }
-    }
-
-    override fun renderLoading(isVisible: Boolean) {
-//        TODO("Not yet implemented")
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun showLocationDetails(location: Location) {
-        binding.tvLocationName.text = location.name
-        binding.tvLocationType.text = "${location.type} -"
-        binding.tvLocationDimension.text = location.dimension
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    override fun showResidents(residents: List<Character>) {
-        val test = residents.map { CharacterFlexiView(it) }
-        Log.e("test", "$test")
-        adapter.updateDataSet(test)
     }
 }

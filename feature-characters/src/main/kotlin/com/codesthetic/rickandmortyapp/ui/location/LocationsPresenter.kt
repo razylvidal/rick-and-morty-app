@@ -1,6 +1,5 @@
 package com.codesthetic.rickandmortyapp.ui.location
 
-import android.util.Log
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.characters.domain.usecases.GetCharacterByIDUseCase
 import com.codesthetic.engine.core.location.domain.usecases.GetLocationByIdUseCase
@@ -27,15 +26,13 @@ class LocationsPresenter
             setup(locationId)
         }
 
-        private fun setup(id: Int) {
-            val location = getLocationByIdUseCase.invoke(GetLocationByIdUseCase.Params(id))
-
+        private fun setup(locationId: Int) {
+            val location = getLocationByIdUseCase.invoke(GetLocationByIdUseCase.Params(locationId))
             location.residents.forEach { id ->
                 runCatching {
                     residents.add(getCharacterByIDUseCase.get(id))
                 }
             }
-            Log.e(">> Residents", "$residents")
             view?.showLocationDetails(location)
             view?.showResidents(residents)
         }

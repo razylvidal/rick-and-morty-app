@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_background">
+    android:background="@color/color_bottom_nav_background">
 
     <ImageView
         android:id="@+id/ivCloseBottomsheet"
@@ -25,7 +25,7 @@
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/lato_bold"
         android:textColor="@color/color_primary_variant"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivCloseBottomsheet"
@@ -41,7 +41,7 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/lato_bold"
         android:textColor="@color/color_on_primary"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@id/tvLocationDimension"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLocationName"
@@ -54,7 +54,7 @@
         android:layout_marginStart="3dp"
         android:fontFamily="@font/lato_light_italic"
         android:textColor="@color/color_on_primary"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/tvLocationType"
         app:layout_constraintTop_toBottomOf="@id/tvLocationName"
         tools:text="Dimension C-137" />
@@ -65,7 +65,7 @@
         android:layout_height="1dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="14dp"
-        android:background="@color/color_divider_color"
+        android:background="@color/color_unselected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLocationDimension" />
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="13dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"

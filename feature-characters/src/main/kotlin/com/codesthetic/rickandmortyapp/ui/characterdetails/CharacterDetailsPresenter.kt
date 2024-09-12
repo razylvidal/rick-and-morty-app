@@ -67,14 +67,22 @@ class CharacterDetailsPresenter
         }
 
         override fun onLocationClicked() {
-            view?.showLocationBottomSheetDialog(character!!.location)
+            if (character?.location!! > UNKNOWN_ID) {
+                view?.showLocationBottomSheetDialog(character!!.location)
+            }
         }
 
         override fun onOriginClicked() {
-            view?.showLocationBottomSheetDialog(character!!.origin)
+            if (character?.origin!! > UNKNOWN_ID) {
+                view?.showLocationBottomSheetDialog(character!!.origin)
+            }
         }
 
         override fun onUpdateCharacter(characterId: Int) {
             setupCharacterDetails(characterId)
+        }
+
+        companion object {
+            private const val UNKNOWN_ID = 0
         }
     }
