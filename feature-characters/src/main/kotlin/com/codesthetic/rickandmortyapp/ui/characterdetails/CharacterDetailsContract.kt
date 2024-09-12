@@ -18,6 +18,10 @@ interface CharacterDetailsContract {
         fun showLoading()
 
         fun hideLoading()
+
+        fun showLocationBottomSheetDialog(id: Int)
+
+        fun showToast(message: String)
     }
 
     interface Presenter {
@@ -27,5 +31,11 @@ interface CharacterDetailsContract {
         )
 
         fun onDestroy()
+
+        fun onLocationClicked()
+
+        fun onOriginClicked()
+
+        fun onUpdateCharacter(characterId: Int)
     }
 }

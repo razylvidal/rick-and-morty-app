@@ -28,7 +28,7 @@ class LocationRepository
             return dao.get().map { it.toDomain() }.ifEmpty { throw NoSuchDataExistException("No locations found") }
         }
 
-        override suspend fun get(id: Int): Location {
+        override fun get(id: Int): Location {
             return dao.get(id)?.toDomain() ?: throw NoSuchDataExistException("No location found. $id")
         }
 

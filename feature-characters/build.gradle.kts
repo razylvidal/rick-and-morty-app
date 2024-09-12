@@ -28,9 +28,6 @@ dependencies {
 
     implementation(libs.coil)
 
-    api(project(":engine-core"))
-    api(project(":shared:theme"))
-    implementation(project(":shared:flexi"))
-    implementation(project(":shared:utils-android"))
+    api(project(":shared:features"))
     implementation(libs.lottie)
 }

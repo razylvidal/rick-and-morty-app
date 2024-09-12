@@ -13,7 +13,7 @@ class GetLocationByIdUseCase
     constructor(
         private val gateway: LocationGateway,
     ) {
-        suspend operator fun invoke(params: Params): Location {
+        operator fun invoke(params: Params): Location {
             return try {
                 gateway.get(params.id)
             } catch (ex: NoSuchDataExistException) {

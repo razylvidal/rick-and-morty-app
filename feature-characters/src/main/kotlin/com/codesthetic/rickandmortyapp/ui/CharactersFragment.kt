@@ -21,7 +21,7 @@ import com.codesthetic.flexi.ProgressItem
 import com.codesthetic.flexi.SimpleEndlessScroll
 import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
 import com.codesthetic.rickandmortyapp.ui.filter.CharactersFilterDialogFragment
-import com.codesthetic.rickandmortyapp.ui.flexiitems.CharacterFlexiView
+import com.codesthetic.rickandmortyapp.ui.flexiitem.CharacterFlexiView
 import dagger.hilt.android.AndroidEntryPoint
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import timber.log.Timber

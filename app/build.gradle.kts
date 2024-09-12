@@ -88,7 +88,6 @@ dependencies {
     implementation(project(":feature-splash"))
     implementation(project(":feature-characters"))
     implementation(project(":feature-episodes"))
-    implementation(project(":feature-locations"))
     implementation(project(":feature-appsetting"))
 
     // Dagger Hilt

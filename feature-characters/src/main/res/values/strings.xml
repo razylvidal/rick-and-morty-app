@@ -14,4 +14,5 @@
     <string name="origin">Origin</string>
     <string name="no_characters_found">No character found</string>
     <string name="no_matches_found_please_check_your_search_query_or_applied_filters">No matches found. Please check your search query or applied filters.</string>
+    <string name="residents">Residents</string>
 </resources>

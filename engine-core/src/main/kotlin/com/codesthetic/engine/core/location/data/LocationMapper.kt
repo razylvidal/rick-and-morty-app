@@ -17,10 +17,10 @@ fun LocationResult.LocationRaw.toDomain() =
     )
 
 private fun getID(residents: List<String>): List<Int> {
-    return if (residents.isEmpty()) {
-        residents.map { it.substringAfterLast('/').toInt() }
-    } else {
-        emptyList()
+    if (residents.isEmpty()) return emptyList()
+
+    return residents.map { url ->
+        url.substringAfterLast('/').toInt()
     }
 }
 
@@ -30,9 +30,15 @@ fun LocationDB.toDomain() =
         name = name,
         type = type,
         dimension = dimension,
-        residents = emptyList(),
+        residents = unwrapIds(residents),
         url = url
     )
+
+fun unwrapIds(ids: String?): List<Int> {
+    if (ids?.isEmpty() == true) return emptyList()
+
+    return ids!!.split(",").map { it.toInt() }
+}
 
 fun Location.toDB() =
     LocationDB(

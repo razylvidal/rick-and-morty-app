@@ -1,10 +1,12 @@
 package com.codesthetic.rickandmortyapp.ui.characterdetails
 
 import android.util.Log
+import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.characters.domain.usecases.GetCharacterByIDUseCase
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodeByIdUseCase
 import com.codesthetic.engine.core.location.domain.usecases.GetLocationByIdUseCase
+import com.codesthetic.engine.exception.NoSuchDataExistException
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,29 +21,36 @@ class CharacterDetailsPresenter
         private val getLocationByIDUseCase: GetLocationByIdUseCase,
         private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
     ) : CharacterDetailsContract.Presenter {
-        private var characterId: Int = 0
         private var view: CharacterDetailsContract.View? = null
         private val scope = MainScope()
+
+        private var character: Character? = null
 
         override fun onViewReady(
             view: CharacterDetailsContract.View,
             id: Int,
         ) {
             this.view = view
-            characterId = id
-            setup()
+            setupCharacterDetails(id)
         }
 
-        private fun setup() {
+        private fun setupCharacterDetails(id: Int) {
             view?.showLoading()
             scope.launch {
-                val character = getCharacterByIDUseCase.get(characterId)
-                val originName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(character.origin)).name
-                val locationName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(character.location)).name
-                Log.e(">>", "${character.location}")
-                val episodes = getEpisodes(character.episode)
-                view?.showCharacterDetails(character, originName, locationName, episodes)
-                view?.hideLoading()
+                try {
+                    character = getCharacterByIDUseCase.get(id)
+                    character?.let {
+                        val originName = getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(it.origin)).name
+                        val locationName =
+                            getLocationByIDUseCase.invoke(GetLocationByIdUseCase.Params(it.location)).name
+                        Log.e(">>", "${character?.location}")
+                        val episodes = getEpisodes(it.episode)
+                        view?.showCharacterDetails(it, originName, locationName, episodes)
+                    }
+                    view?.hideLoading()
+                } catch (ex: NoSuchDataExistException) {
+                    view?.showToast(ex.message)
+                }
             }
         }
 
@@ -55,5 +64,17 @@ class CharacterDetailsPresenter
 
         override fun onDestroy() {
             this.view = null
+        }
+
+        override fun onLocationClicked() {
+            view?.showLocationBottomSheetDialog(character!!.location)
+        }
+
+        override fun onOriginClicked() {
+            view?.showLocationBottomSheetDialog(character!!.origin)
+        }
+
+        override fun onUpdateCharacter(characterId: Int) {
+            setupCharacterDetails(characterId)
         }
     }

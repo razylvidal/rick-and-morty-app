@@ -8,7 +8,7 @@ interface LocationGateway {
 
     suspend fun get(): List<Location>
 
-    suspend fun get(id: Int): Location
+    fun get(id: Int): Location
 
     fun save(locations: Location)
 

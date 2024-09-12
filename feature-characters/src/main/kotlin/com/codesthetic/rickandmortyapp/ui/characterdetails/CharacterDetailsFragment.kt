@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -16,6 +17,7 @@ import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.feature.characters.R
 import com.codesthetic.feature.characters.databinding.CharacterDetailsFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
+import com.codesthetic.rickandmortyapp.ui.location.LocationDialogFragment
 import com.codesthetic.utilsandroid.capitalizeFirstChar
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,6 +54,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        clickHandlers()
 
         presenter.onViewReady(this, getCharacterId())
 
@@ -67,6 +70,16 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
         binding.rvEpisodes.setHasFixedSize(true)
     }
 
+    private fun clickHandlers() {
+        binding.characterDetails.tvLocation.setOnClickListener {
+            presenter.onLocationClicked()
+        }
+
+        binding.characterDetails.tvOrigin.setOnClickListener {
+            presenter.onOriginClicked()
+        }
+    }
+
     override fun showCharacterDetails(
         character: Character,
         originName: String,
@@ -80,7 +93,7 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
             tvStatus.text = character.status.capitalizeFirstChar()
             tvSpecies.text = character.species
             tvOrigin.text = originName.capitalizeFirstChar()
-            tvLocation.text = locationName
+            tvLocation.text = locationName.capitalizeFirstChar()
             tvGender.text = character.gender.capitalizeFirstChar()
             tvType.text = character.type
         }
@@ -116,11 +129,24 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
         // TODO("Not yet implemented")
     }
 
+    override fun showLocationBottomSheetDialog(id: Int) {
+        LocationDialogFragment.newInstance(id)
+            .onCharacterClicked { id ->
+                presenter.onUpdateCharacter(id)
+            }
+            .show(childFragmentManager, DIALOG_KEY)
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
     private fun getCharacterId(): Int {
         return requireArguments().getInt(CHARACTER_ID_KEY)
     }
 
     companion object {
+        private const val DIALOG_KEY = "dialog_key"
         private const val CHARACTER_ID_KEY = "character_id"
         private const val STROKE_WIDTH = 0f
 

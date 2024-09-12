@@ -1,4 +1,4 @@
-package com.codesthetic.rickandmortyapp.ui.flexiitems
+package com.codesthetic.rickandmortyapp.ui.flexiitem
 
 import android.view.View
 import android.widget.ImageView
@@ -20,7 +20,7 @@ class CharacterFlexiView(
 ) : BaseFlexiView() {
     override fun equals(other: Any?): Boolean {
         if (other !is CharacterFlexiView) return false
-        return character.id == other.character.id
+        return character == other.character
     }
 
     override fun getLayoutRes(): Int = R.layout.character_frame_layout
@@ -46,7 +46,7 @@ class CharacterFlexiView(
     }
 
     override fun hashCode(): Int {
-        return character.id.hashCode()
+        return character.hashCode()
     }
 
     inner class CharacterViewHolder(
