@@ -13,14 +13,16 @@ class EpisodesPresenter
     ) : EpisodesContracts.Presenter {
         private var view: EpisodesContracts.View? = null
 
+        private var currentSeason = 1
+
         override fun onViewReady(view: EpisodesContracts.View) {
             this.view = view
             renderEpisodes()
         }
 
-        private fun renderEpisodes(season: Int = 1) {
-            val episodes = getEpisodesBySeason.invoke(GetEpisodesBySeason.Param(season))
-            view?.renderNewSeason("Season $season")
+        private fun renderEpisodes() {
+            val episodes = getEpisodesBySeason.invoke(GetEpisodesBySeason.Param(currentSeason))
+            view?.renderSeason("Season $currentSeason")
             view?.showEpisodes(episodes)
         }
 
@@ -33,7 +35,11 @@ class EpisodesPresenter
         }
 
         override fun onSeasonClicked() {
-            // TODO("Not yet implemented")
+            val seasons = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9)
+            view?.showSeasonDialog(
+                currentSeason = currentSeason,
+                seasons
+            )
         }
 
         override fun onUpdateSeason() {

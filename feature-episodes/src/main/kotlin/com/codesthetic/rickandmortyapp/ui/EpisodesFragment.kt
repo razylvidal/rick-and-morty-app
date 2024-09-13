@@ -12,6 +12,7 @@ import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.feature.episodes.databinding.EpisodesFragmentBinding
 import com.codesthetic.flexi.BaseFlexiView
 import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
+import com.codesthetic.rickandmortyapp.ui.season.SeasonDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import eu.davidea.flexibleadapter.FlexibleAdapter
 import timber.log.Timber
@@ -78,7 +79,9 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
     }
 
     private fun clickHandlers() {
-        // TODO()
+        binding.tvSeason.setOnClickListener {
+            presenter.onSeasonClicked()
+        }
     }
 
     override fun onDestroy() {
@@ -95,7 +98,15 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
         adapter.notifyDataSetChanged()
     }
 
-    override fun renderNewSeason(season: String) {
+    override fun renderSeason(season: String) {
         binding.tvSeason.text = season
+    }
+
+    override fun showSeasonDialog(
+        currentSeason: Int,
+        seasons: List<Int>,
+    ) {
+        SeasonDialogFragment.newInstance(currentSeason, seasons)
+            .show(childFragmentManager, "dialog")
     }
 }

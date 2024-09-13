@@ -9,7 +9,12 @@ interface EpisodesContracts {
     interface View {
         fun showEpisodes(episodes: List<Episode>)
 
-        fun renderNewSeason(season: String)
+        fun renderSeason(season: String)
+
+        fun showSeasonDialog(
+            currentSeason: Int,
+            seasons: List<Int>,
+        )
     }
 
     interface Presenter {
