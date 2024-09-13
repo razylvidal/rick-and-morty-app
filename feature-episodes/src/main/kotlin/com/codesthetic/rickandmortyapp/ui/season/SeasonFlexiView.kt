@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.codesthetic.rickandmortyapp.ui.season
 
 import android.annotation.SuppressLint
@@ -15,8 +17,9 @@ import eu.davidea.flexibleadapter.items.IFlexible
 
 class SeasonFlexiView(
     val season: Int,
-    private val selectedIndex: Int,
 ) : BaseFlexiView() {
+    var isSelected = false
+
     override fun equals(other: Any?): Boolean {
         if (other !is SeasonFlexiView) return false
         return season == other.season
@@ -40,17 +43,16 @@ class SeasonFlexiView(
     ) {
         if (holder is SeasonViewHolder) {
             holder.season.text = "Season $season"
-            val selected = position == selectedIndex
             holder.season.setTextColor(
                 ContextCompat.getColor(
                     holder.season.context,
-                    if (selected) color.color_primary_variant else color.color_unselected
+                    if (isSelected) color.color_primary_variant else color.color_unselected
                 )
             )
-            holder.season.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (selected) 20.0f else 18.0f)
+            holder.season.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (isSelected) 20.0f else 18.0f)
             holder.season.setTypeface(
                 holder.season.typeface,
-                if (selected) Typeface.BOLD else Typeface.NORMAL
+                if (isSelected) Typeface.BOLD else Typeface.NORMAL
             )
         }
     }

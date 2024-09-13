@@ -12,5 +12,7 @@ interface EpisodeGateway {
 
     fun getBySeason(season: Int): List<Episode>
 
+    fun getSeasons(): List<Int>
+
     fun save(episode: Episode)
 }

@@ -26,6 +26,6 @@ interface EpisodesContracts {
 
         fun onSeasonClicked()
 
-        fun onUpdateSeason()
+        fun onUpdateSeason(season: Int)
     }
 }

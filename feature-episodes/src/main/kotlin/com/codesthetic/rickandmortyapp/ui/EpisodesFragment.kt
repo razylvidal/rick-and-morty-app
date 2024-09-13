@@ -24,6 +24,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EpisodesFragment : Fragment(), EpisodesContracts.View {
+    private var currentSeason = 1
+
     @Inject
     lateinit var presenter: EpisodesPresenter
 
@@ -107,6 +109,9 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
         seasons: List<Int>,
     ) {
         SeasonDialogFragment.newInstance(currentSeason, seasons)
+            .onApply { season ->
+                presenter.onUpdateSeason(season)
+            }
             .show(childFragmentManager, "dialog")
     }
 }

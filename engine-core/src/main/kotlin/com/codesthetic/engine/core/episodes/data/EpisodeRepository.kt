@@ -36,6 +36,10 @@ class EpisodeRepository
             return dao.getBySeason(season = season).map { it.toDomain() }
         }
 
+        override fun getSeasons(): List<Int> {
+            return dao.getSeasons()
+        }
+
         override fun save(episode: Episode) {
             dao.save(episode.toDB())
         }

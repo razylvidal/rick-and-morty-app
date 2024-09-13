@@ -18,14 +18,20 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import eu.davidea.flexibleadapter.FlexibleAdapter
 
-class SeasonDialogFragment : BottomSheetDialogFragment() {
+class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItemClickListener {
+    private var currentSeason = 1
+
     private val binding by lazy {
         SeasonBottomSheetDialogBinding.inflate(layoutInflater)
     }
 
     private val adapter by lazy {
-        FlexibleAdapter<BaseFlexiView>(emptyList())
+        FlexibleAdapter(initFlexiView()).apply {
+            mItemClickListener = this@SeasonDialogFragment
+        }
     }
+
+    private var onApply: ((Int) -> Unit?)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +45,7 @@ class SeasonDialogFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-
+        currentSeason = getCurrentSeason()
         if (savedInstanceState != null) {
             dismissAllowingStateLoss()
             return
@@ -49,11 +55,21 @@ class SeasonDialogFragment : BottomSheetDialogFragment() {
         setupRecyclerView()
 
         binding.tvApply.setOnClickListener {
+            onApply?.invoke(currentSeason)
             dismiss()
         }
+    }
 
-        adapter.updateDataSet(getSeasons().map { SeasonFlexiView(it, 5) })
-        adapter.notifyDataSetChanged()
+    private fun initFlexiView(): List<BaseFlexiView> {
+        val items = mutableListOf<BaseFlexiView>()
+        val seasons = getSeasons()
+        for (season in seasons) {
+            val item = SeasonFlexiView(season)
+            item.isSelected = season == currentSeason
+            items.add(item)
+        }
+
+        return items
     }
 
     private fun show() {
@@ -73,16 +89,50 @@ class SeasonDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun getCurrentSeason(): Int = requireArguments().getInt(SEASON_KEY)
-
-    private fun getSeasons(): List<Int> = listOf(1, 2, 3, 4, 5, 6, 7)
-
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView() {
         binding.rvSeason.layoutManager = LinearLayoutManager(context)
         binding.rvSeason.itemAnimator = DefaultItemAnimator()
         binding.rvSeason.adapter = adapter
-        binding.rvSeason.setHasFixedSize(true)
+        binding.rvSeason.post {
+            for (index in 0..adapter.itemCount) {
+                val item = adapter.getItem(index) as? SeasonFlexiView
+                if (getCurrentSeason() == item?.season) {
+                    currentSeason = index
+                }
+            }
+            adapter.notifyDataSetChanged()
+        }
     }
+
+    override fun onItemClick(
+        view: View?,
+        position: Int,
+    ): Boolean {
+        return when (val item = adapter.getItem(position)) {
+            is SeasonFlexiView -> {
+                val old = adapter.getItem(currentSeason) as? SeasonFlexiView
+                old?.isSelected = false
+                adapter.notifyItemChanged(currentSeason)
+
+                item.isSelected = true
+                currentSeason = item.season
+                adapter.notifyItemChanged(position)
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    fun onApply(callback: (Int) -> Unit): SeasonDialogFragment {
+        this.onApply = callback
+        return this
+    }
+
+    private fun getCurrentSeason(): Int = requireArguments().getInt(SEASON_KEY)
+
+    private fun getSeasons(): List<Int> = requireArguments().getIntegerArrayList(SEASONS)!!
 
     companion object {
         private const val SEASON_KEY = "season_key"

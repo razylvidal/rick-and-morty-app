@@ -1,6 +1,7 @@
 package com.codesthetic.rickandmortyapp.ui
 
 import com.codesthetic.engine.core.episodes.domain.usecases.GetEpisodesBySeason
+import com.codesthetic.engine.core.episodes.domain.usecases.GetSeasonsUseCase
 import javax.inject.Inject
 
 /**
@@ -10,10 +11,11 @@ class EpisodesPresenter
     @Inject
     constructor(
         private val getEpisodesBySeason: GetEpisodesBySeason,
+        private val getSeasonsUseCase: GetSeasonsUseCase,
     ) : EpisodesContracts.Presenter {
         private var view: EpisodesContracts.View? = null
 
-        private var currentSeason = 1
+        private var selectedSeason = 1
 
         override fun onViewReady(view: EpisodesContracts.View) {
             this.view = view
@@ -21,8 +23,8 @@ class EpisodesPresenter
         }
 
         private fun renderEpisodes() {
-            val episodes = getEpisodesBySeason.invoke(GetEpisodesBySeason.Param(currentSeason))
-            view?.renderSeason("Season $currentSeason")
+            val episodes = getEpisodesBySeason.invoke(GetEpisodesBySeason.Param(selectedSeason))
+            view?.renderSeason("Season $selectedSeason")
             view?.showEpisodes(episodes)
         }
 
@@ -35,14 +37,14 @@ class EpisodesPresenter
         }
 
         override fun onSeasonClicked() {
-            val seasons = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9)
             view?.showSeasonDialog(
-                currentSeason = currentSeason,
-                seasons
+                currentSeason = selectedSeason,
+                getSeasonsUseCase.invoke()
             )
         }
 
-        override fun onUpdateSeason() {
-            //  TODO("Not yet implemented")
+        override fun onUpdateSeason(season: Int) {
+            selectedSeason = season
+            renderEpisodes()
         }
     }
