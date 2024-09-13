@@ -2,6 +2,7 @@ package com.codesthetic.rickandmortyapp.ui.season
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,26 +13,54 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codesthetic.feature.episodes.databinding.SeasonBottomSheetDialogBinding
 import com.codesthetic.flexi.BaseFlexiView
+import com.codesthetic.flexi.ThrottledFlexiItemClickedListener
 import com.codesthetic.utilsandroid.LockedBottomSheetBehavior
 import com.google.android.material.R.id.design_bottom_sheet
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import eu.davidea.flexibleadapter.FlexibleAdapter
 
-class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItemClickListener {
+class SeasonDialogFragment : BottomSheetDialogFragment() {
     private var currentSeason = 1
+
+    private var selectedSeason = 1
 
     private val binding by lazy {
         SeasonBottomSheetDialogBinding.inflate(layoutInflater)
     }
 
     private val adapter by lazy {
-        FlexibleAdapter(initFlexiView()).apply {
-            mItemClickListener = this@SeasonDialogFragment
-        }
+        FlexibleAdapter(initFlexiView())
     }
 
     private var onApply: ((Int) -> Unit?)? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        currentSeason = getCurrentSeason()
+        selectedSeason = currentSeason
+
+        adapter.mItemClickListener =
+            object : ThrottledFlexiItemClickedListener() {
+                override fun onSingleClicked(
+                    view: View?,
+                    position: Int,
+                ) {
+                    val item = adapter.getItem(position) as? SeasonFlexiView
+                    if (item != null) {
+                        val prevSeason = selectedSeason.dec()
+                        val old = adapter.getItem(prevSeason) as? SeasonFlexiView
+                        old?.isSelected = false
+                        adapter.notifyItemChanged(prevSeason)
+
+                        item.isSelected = true
+                        adapter.notifyItemChanged(position)
+                        selectedSeason = item.season
+                    }
+                }
+            }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +74,7 @@ class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItem
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-        currentSeason = getCurrentSeason()
+
         if (savedInstanceState != null) {
             dismissAllowingStateLoss()
             return
@@ -55,7 +84,12 @@ class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItem
         setupRecyclerView()
 
         binding.tvApply.setOnClickListener {
-            onApply?.invoke(currentSeason)
+            onApply?.invoke(selectedSeason)
+            currentSeason = selectedSeason
+            dismiss()
+        }
+
+        binding.ivClose.setOnClickListener {
             dismiss()
         }
     }
@@ -89,40 +123,10 @@ class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItem
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setupRecyclerView() {
         binding.rvSeason.layoutManager = LinearLayoutManager(context)
         binding.rvSeason.itemAnimator = DefaultItemAnimator()
         binding.rvSeason.adapter = adapter
-        binding.rvSeason.post {
-            for (index in 0..adapter.itemCount) {
-                val item = adapter.getItem(index) as? SeasonFlexiView
-                if (getCurrentSeason() == item?.season) {
-                    currentSeason = index
-                }
-            }
-            adapter.notifyDataSetChanged()
-        }
-    }
-
-    override fun onItemClick(
-        view: View?,
-        position: Int,
-    ): Boolean {
-        return when (val item = adapter.getItem(position)) {
-            is SeasonFlexiView -> {
-                val old = adapter.getItem(currentSeason) as? SeasonFlexiView
-                old?.isSelected = false
-                adapter.notifyItemChanged(currentSeason)
-
-                item.isSelected = true
-                currentSeason = item.season
-                adapter.notifyItemChanged(position)
-                true
-            }
-
-            else -> false
-        }
     }
 
     fun onApply(callback: (Int) -> Unit): SeasonDialogFragment {
@@ -142,6 +146,7 @@ class SeasonDialogFragment : BottomSheetDialogFragment(), FlexibleAdapter.OnItem
             currentSeason: Int,
             seasons: List<Int>,
         ): SeasonDialogFragment {
+            Log.e("season", "$currentSeason")
             return SeasonDialogFragment().apply {
                 val listOfSeasons = ArrayList<Int>()
                 listOfSeasons.addAll(seasons)
