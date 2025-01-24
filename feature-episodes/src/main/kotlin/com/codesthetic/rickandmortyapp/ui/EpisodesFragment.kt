@@ -119,4 +119,8 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
             }
             .show(childFragmentManager, "dialog")
     }
+
+    override fun navigateToEpisodeDetails(episodeId: Int) {
+
+    }
 }

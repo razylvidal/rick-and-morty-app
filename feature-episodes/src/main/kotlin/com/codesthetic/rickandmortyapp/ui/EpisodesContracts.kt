@@ -15,6 +15,8 @@ interface EpisodesContracts {
             currentSeason: Int,
             seasons: List<Int>,
         )
+
+        fun navigateToEpisodeDetails(episodeId: Int)
     }
 
     interface Presenter {

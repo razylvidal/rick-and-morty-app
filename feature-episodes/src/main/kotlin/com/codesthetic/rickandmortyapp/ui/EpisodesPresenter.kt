@@ -33,7 +33,7 @@ class EpisodesPresenter
         }
 
         override fun onEpisodeClicked(episodeId: Int) {
-            // TODO("Not yet implemented")
+            view?.navigateToEpisodeDetails(episodeId)
         }
 
         override fun onSeasonClicked() {

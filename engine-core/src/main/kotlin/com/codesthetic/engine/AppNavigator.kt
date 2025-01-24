@@ -12,4 +12,9 @@ interface AppNavigator {
         activity: Activity,
         id: Int,
     )
+
+    fun navigateToEpisodeDetails(
+        activity: Activity,
+        id: Int,
+    )
 }

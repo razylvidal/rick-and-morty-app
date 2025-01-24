@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import com.codesthetic.engine.AppNavigator
 import com.codesthetic.rickandmortyapp.ui.characterdetails.CharacterDetailsActivity
+import com.codesthetic.rickandmortyapp.ui.episodedetails.EpisodeDetailsFragment
 import javax.inject.Inject
 
 /**
@@ -26,4 +27,13 @@ class AppNavigatorImpl
             intent.putExtra(CharacterDetailsActivity.KEY_CHARACTER_ID, id)
             activity.startActivity(intent)
         }
+
+    override fun navigateToEpisodeDetails(activity: Activity, id: Int) {
+        val tag = EpisodeDetailsFragment::class.java.name
+        val fragmentHelper = activity.
     }
+
+
+
+
+}
