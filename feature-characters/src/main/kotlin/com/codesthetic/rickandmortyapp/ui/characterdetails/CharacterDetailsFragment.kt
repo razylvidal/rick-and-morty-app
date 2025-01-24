@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.airbnb.lottie.LottieProperty.STROKE_WIDTH
 import com.codesthetic.engine.core.characters.domain.Character
 import com.codesthetic.engine.core.episodes.domain.Episode
 import com.codesthetic.feature.characters.R
@@ -33,9 +34,9 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
     @Inject
     lateinit var presenter: CharacterDetailsPresenter
 
-    private val binding by lazy {
-        CharacterDetailsFragmentBinding.inflate(layoutInflater)
-    }
+    private var _binding: CharacterDetailsFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     private val adapter by lazy {
         FlexibleAdapter<BaseFlexiView>(emptyList())
@@ -45,7 +46,17 @@ class CharacterDetailsFragment : Fragment(), CharacterDetailsContract.View {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = binding.root
+    ): View {
+        _binding = CharacterDetailsFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+        _binding = null
+    }
 
     override fun onViewCreated(
         view: View,

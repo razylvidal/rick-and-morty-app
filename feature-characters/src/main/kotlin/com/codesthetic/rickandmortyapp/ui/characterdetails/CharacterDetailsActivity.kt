@@ -12,12 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CharacterDetailsActivity : AppCompatActivity() {
-    private val binding by lazy {
-        CharacterDetailsActivityBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: CharacterDetailsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = CharacterDetailsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (hasIntentExtras() && savedInstanceState == null) {

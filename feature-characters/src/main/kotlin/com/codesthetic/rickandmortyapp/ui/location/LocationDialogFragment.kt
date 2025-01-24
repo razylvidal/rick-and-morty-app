@@ -32,7 +32,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.View {
-    private lateinit var binding: LocationDialogFragmentBinding
+    private var _binding: LocationDialogFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun getTheme(): Int = com.google.android.material.R.style.Theme_Design_BottomSheetDialog
 
@@ -67,8 +69,14 @@ class LocationDialogFragment : BottomSheetDialogFragment(), LocationsContracts.V
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = LocationDialogFragmentBinding.inflate(layoutInflater)
+        _binding = LocationDialogFragmentBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+        _binding = null
     }
 
     override fun onViewCreated(

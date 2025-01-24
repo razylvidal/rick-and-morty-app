@@ -26,7 +26,9 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CharactersFilterDialogFragment : BottomSheetDialogFragment() {
-    private lateinit var binding: CharacterFilterDialogFragmentBinding
+    private var _binding: CharacterFilterDialogFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun getTheme(): Int = com.google.android.material.R.style.Theme_Design_BottomSheetDialog
 
@@ -91,7 +93,7 @@ class CharactersFilterDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = CharacterFilterDialogFragmentBinding.inflate(inflater, container, false)
+        _binding = CharacterFilterDialogFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

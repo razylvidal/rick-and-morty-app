@@ -25,9 +25,9 @@ class SeasonDialogFragment : BottomSheetDialogFragment() {
 
     private var selectedSeason = 1
 
-    private val binding by lazy {
-        SeasonBottomSheetDialogBinding.inflate(layoutInflater)
-    }
+    private var _binding: SeasonBottomSheetDialogBinding? = null
+
+    private val binding get() = _binding!!
 
     private val adapter by lazy {
         FlexibleAdapter(initFlexiView())
@@ -66,7 +66,16 @@ class SeasonDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = binding.root
+    ): View  {
+        _binding = SeasonBottomSheetDialogBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(

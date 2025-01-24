@@ -14,9 +14,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity(), SplashContract.View {
-    private val binding by lazy {
-        ActivitySplashBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivitySplashBinding
 
     @Inject
     lateinit var presenter: SplashPresenter
@@ -26,6 +24,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         presenter.onViewReady(this)
     }

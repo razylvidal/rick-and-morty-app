@@ -29,9 +29,9 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
     @Inject
     lateinit var presenter: EpisodesPresenter
 
-    private val binding by lazy {
-        EpisodesFragmentBinding.inflate(layoutInflater)
-    }
+    private var _binding: EpisodesFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     private val adapter by lazy {
         FlexibleAdapter<BaseFlexiView>(emptyList())
@@ -60,7 +60,11 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = binding.root
+    ): View {
+        _binding = EpisodesFragmentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
+    }
 
     override fun onViewCreated(
         view: View,
@@ -89,6 +93,7 @@ class EpisodesFragment : Fragment(), EpisodesContracts.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+        _binding = null
     }
 
     @SuppressLint("NotifyDataSetChanged")

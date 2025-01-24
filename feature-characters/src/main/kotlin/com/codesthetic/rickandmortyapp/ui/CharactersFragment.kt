@@ -39,9 +39,9 @@ class CharactersFragment : Fragment(), CharactersContract.View {
     @Inject
     lateinit var navigator: AppNavigator
 
-    private val binding by lazy {
-        CharacterFragmentBinding.inflate(layoutInflater)
-    }
+    private var _binding: CharacterFragmentBinding? = null
+
+    private val binding get() = _binding!!
 
     private val adapter by lazy {
         FlexibleAdapter<BaseFlexiView>(emptyList())
@@ -72,7 +72,10 @@ class CharactersFragment : Fragment(), CharactersContract.View {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = binding.root
+    ): View {
+        _binding = CharacterFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(
         view: View,
@@ -126,6 +129,7 @@ class CharactersFragment : Fragment(), CharactersContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+        _binding = null
     }
 
     override fun renderLoading(isVisible: Boolean) {
